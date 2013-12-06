@@ -12,6 +12,14 @@ GIT
     bootstrap-sass (3.0.3.0)
       sass (~> 3.2)
 
+GIT
+  remote: git://github.com/zlx/simple_form_bootstrap3.git
+  revision: 8fe2e4ef642296061a8a42e432685c896203af22
+  specs:
+    simple_form (3.0.0.rc)
+      actionpack (>= 4.0.0, < 4.1)
+      activemodel (>= 4.0.0, < 4.1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -204,9 +212,6 @@ GEM
       sass (>= 3.1.10)
       sprockets-rails (~> 2.0.0)
     sexp_processor (4.4.0)
-    simple_form (3.0.1)
-      actionpack (>= 4.0.0, < 4.1)
-      activemodel (>= 4.0.0, < 4.1)
     slop (3.4.7)
     spring (1.0.0)
     spring-commands-rspec (1.0.1)
@@ -281,7 +286,7 @@ DEPENDENCIES
   responders
   rspec-rails
   sass-rails (~> 4.0.0)
-  simple_form
+  simple_form!
   spring
   spring-commands-rspec
   turbolinks

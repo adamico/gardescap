@@ -13,7 +13,7 @@ gem 'bootstrap-sass', github: "thomas-mcdonald/bootstrap-sass"
 gem 'devise'
 gem "cancan", github: "ncri/cancan", branch: "2.0"
 gem 'haml-rails'
-gem 'simple_form'
+gem 'simple_form', github: 'zlx/simple_form_bootstrap3'
 gem 'unicorn'
 gem "unicorn-rails"
 gem 'pg'

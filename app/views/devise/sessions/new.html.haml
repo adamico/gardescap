@@ -1,6 +1,7 @@
 %h2 Connexion
-= simple_form_for(resource, as: resource_name, url: session_path(resource_name), html: {class: 'form-vertical' }) do |f|
-  = f.input :email, autofocus: true
-  = f.input :password
-  = f.input :remember_me, as: :boolean if devise_mapping.rememberable?
-  = f.button :submit, "Connexion", class: 'btn-primary'
+= simple_form_for(resource, as: resource_name, url: session_path(resource_name), html: {class: 'form-horizontal', role: "form" }) do |f|
+  = f.input :email, autofocus: true, controls_html: {class: "col-md-4"}
+  = f.input :password, controls_html: {class: "col-md-4"}
+  .form-group
+    .col-lg-offset-2.col-lg-2
+      = f.submit "Connexion", class: 'btn btn-primary'
