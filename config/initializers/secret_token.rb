@@ -9,4 +9,4 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-Gardescap::Application.config.secret_key_base = 'c321999b3dfa8e0e0cad77ae9c0c60d50df2709b654fa6c91348a679efec9207c7a9a0809d4bedb448b0bd12eb2974e064bbfa153b287733092733eba5893a78'
+Gardescap::Application.config.secret_key_base = '62cbf85fd00798ddd61c287fd5c5c9818ae725b023bd3709a1d7513247378fe6cf4420445a8a85c044e3511cafed45f386bc2c6b8832afd3a3c3b63d9fcbffa6'
