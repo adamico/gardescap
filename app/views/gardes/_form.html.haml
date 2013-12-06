@@ -1,3 +1,6 @@
-= form_for garde do |f|
-  = f.text_field :candidate_list
-  = f.submit "Enregistrer"
+= form_for garde, html: {role: "form"} do |f|
+  .row
+    .col-lg-2
+      = f.label :candidate_list, class: "sr-only"
+      = f.hidden_field :candidate_list
+    = f.submit "Enregistrer", class: "btn btn-default"

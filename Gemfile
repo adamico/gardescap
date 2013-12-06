@@ -18,6 +18,7 @@ gem 'unicorn'
 gem "unicorn-rails"
 gem 'pg'
 gem 'acts-as-taggable-on', github: "mbleigh/acts-as-taggable-on"
+gem 'select2-rails', github: "argerim/select2-rails"
 group :development do
   gem "spring"
   gem "spring-commands-rspec"

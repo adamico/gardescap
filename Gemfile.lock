@@ -1,4 +1,11 @@
 GIT
+  remote: git://github.com/argerim/select2-rails.git
+  revision: e87aae82995f5cabd5656e266bac675e947f62b9
+  specs:
+    select2-rails (3.5.2)
+      thor (~> 0.14)
+
+GIT
   remote: git://github.com/jonleighton/poltergeist.git
   revision: 1ac62bd9c60634ba8c7f651b9fb0b938309e31ff
   specs:
@@ -311,6 +318,7 @@ DEPENDENCIES
   responders
   rspec-rails
   sass-rails (~> 4.0.0)
+  select2-rails!
   simple_form!
   spring
   spring-commands-rspec
