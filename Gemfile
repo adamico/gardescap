@@ -48,7 +48,7 @@ gem 'bootstrap-sass', '>= 3.0.0.0'
 gem 'cancan'
 gem 'devise'
 gem 'haml-rails'
-gem 'pg'
+
 gem 'rolify'
 gem 'simple_form'
 gem 'unicorn'
