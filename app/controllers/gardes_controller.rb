@@ -1,4 +1,14 @@
 class GardesController < ApplicationController
+  def tags
+    @tags = ActsAsTaggableOn::Tag.named_like(params[:q])
+    respond_to do |format|
+      format.json do |format|
+        tag_list = @tags.any? ? @tags.map {|tag| {id: tag.name, text: tag.name}} : [{id: params[:q], text: params[:q]}]
+        render json: tag_list
+      end
+    end
+  end
+
   def show
   end
 

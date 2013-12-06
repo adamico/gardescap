@@ -1,6 +1,8 @@
 = form_for garde, html: {role: "form"} do |f|
   .row
-    .col-lg-2
+    .col-lg-4
       = f.label :candidate_list, class: "sr-only"
-      = f.hidden_field :candidate_list
+      = f.hidden_field :candidate_list,
+        value: f.object.candidate_list,
+        data: { load: f.object.candidate_list.map {|candidate| {id: candidate, text: candidate}}.to_json }
     = f.submit "Enregistrer", class: "btn btn-default"

@@ -6,13 +6,20 @@ $ = jQuery
 
 $ ->
   $("#garde_candidate_list").select2
+    minimumInputLength: 3
     tags: true
+    tokenSeparators: [","]
+    createSearchChoice: (term, data) ->
+      return { id: term, text: term } if $(data).filter(-> return this.text.localeCompare(term) is 0).length is 0
+    multiple: true
+    initSelection : (element, callback) ->
+      preload = element.data("load")
+      callback(preload)
     ajax:
-      url: "/gardes/tags.json"
+      url: "/tags.json"
       dataType: "json"
       data: (term, page) ->
         q: term
         page_limit: 10
-        results: (data, page) ->
-          return {results: data}
-    tokenSeparator: [","]
+      results: (data, page) ->
+        return {results: data}
