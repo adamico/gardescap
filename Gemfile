@@ -11,6 +11,7 @@ gem 'jbuilder', '~> 1.2'
 gem "responders"
 gem 'bootstrap-sass', github: "thomas-mcdonald/bootstrap-sass"
 gem 'devise'
+gem "cancan", github: "ncri/cancan", branch: "2.0"
 gem 'haml-rails'
 gem 'simple_form'
 gem 'unicorn'

@@ -1,0 +1,9 @@
+fr:
+  unauthorized:
+    default: "Vous n'êtes pas autorisé à voir cette page."
+    access:
+      all: "Vous n'êtes pas autorisé à voir cette page."
+      users: "Vous n'êtes pas autorisé à gérer les utilisateurs."
+      dossiers: "Vous ne pouvez pas modifier un dossier n'appartenant pas à votre CRPV !"
+      etude_bnpvs: "Vous ne pouvez pas modifier une étude n'appartenant pas à votre CRPV !"
+      etude_terappels: "Vous ne pouvez pas modifier une étude n'appartenant pas à votre CRPV !"

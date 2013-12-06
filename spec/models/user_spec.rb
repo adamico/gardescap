@@ -1,5 +1,9 @@
 require 'spec_helper'
 
 describe User do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe "#role" do
+    it "should exist" do
+      User.new.should respond_to(:role)
+    end
+  end
 end
