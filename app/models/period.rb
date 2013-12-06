@@ -4,6 +4,6 @@ class Period < ActiveRecord::Base
   end
 
   def gardes
-    Garde.where(date: starts_at..ends_at)
+    Garde.where(date: starts_at..ends_at).order(:date)
   end
 end

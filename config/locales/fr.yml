@@ -11,6 +11,8 @@ fr:
       default: "%d/%m/%Y"
       short: "%e %b"
       long: "%e %B %Y"
+      superlong: "%A %d/%m/%Y"
+      month_only: "%B"
     day_names:
       - dimanche
       - lundi

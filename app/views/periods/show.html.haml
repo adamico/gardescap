@@ -1,5 +1,28 @@
 %h2= "Choix des gardes " + @period.name
 
-- if @period.gardes.any?
-  - @period.gardes.each do |garde|
-    = render 'gardes/form', garde: garde
+- if @gardes.any?
+  %ul.nav.nav-tabs
+    - @mois.each_with_index do |mois, index|
+      %li{class: index == 0 ? "active" : nil}
+        %a{href: "##{mois}", data: {toggle: "tab"}} #{mois}
+
+  .tab-content
+    - @mois.each_with_index do |mois, index|
+      - gardes_by_month = @mois_gardes[mois]
+      .tab-pane{id: mois, class: index == 0 ? "active" : nil}
+        %table.table.table-bordered
+          %thead
+            %tr
+              %th #{mois}
+              %th{colspan: 2} Matin
+              %th{colspan: 2} Après-midi
+              %th Nuit courte
+              %th Nuit longue
+          - gardes_by_month.group_by(&:date).each do |date, gardes|
+            %tr
+              %th= l(date, format: :superlong)
+              - ["MatinJ", "MatinS", "AMJ", "AMS", "Nuit Courte", "Nuit Longue"].each do |time|
+                - if (garde = gardes.select {|garde| garde.time == time}.first)
+                  %td= garde.candidate_list
+                - else
+                  %td &nbsp;
