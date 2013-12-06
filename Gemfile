@@ -5,16 +5,16 @@ gem 'sass-rails', '~> 4.0.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
-gem "jquery-turbolinks"
+gem 'jquery-turbolinks'
 gem 'turbolinks'
 gem 'jbuilder', '~> 1.2'
 gem "responders"
 gem 'bootstrap-sass', github: "thomas-mcdonald/bootstrap-sass"
-gem 'the_role', '~> 2.0.0'
 gem 'devise'
 gem 'haml-rails'
 gem 'simple_form'
 gem 'unicorn'
+gem "unicorn-rails"
 gem 'pg'
 group :development do
   gem "spring"
