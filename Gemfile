@@ -17,6 +17,10 @@ gem 'simple_form'
 gem 'unicorn'
 gem 'pg'
 group :development do
+  gem "spring"
+  gem "spring-commands-rspec"
+  gem "pry"
+  gem "pry-rails"
   gem 'better_errors'
   gem 'binding_of_caller', :platforms=>[:mri_19, :mri_20, :rbx]
   gem 'guard-bundler'
