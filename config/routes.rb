@@ -1,4 +1,7 @@
 Gardescap::Application.routes.draw do
-  root :to => "home#index"
   devise_for :users
+
+  get "gardes/prochain_choix", to: "periods#show"
+  resources :gardes
+  root to: "home#index"
 end

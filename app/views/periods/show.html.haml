@@ -1,0 +1,5 @@
+%h2= "Choix des gardes " + @period.name
+
+- if @period.gardes.any?
+  - @period.gardes.each do |garde|
+    = render 'gardes/form', garde: garde

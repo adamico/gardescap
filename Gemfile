@@ -17,6 +17,7 @@ gem 'simple_form', github: 'zlx/simple_form_bootstrap3'
 gem 'unicorn'
 gem "unicorn-rails"
 gem 'pg'
+gem 'acts-as-taggable-on', github: "mbleigh/acts-as-taggable-on"
 group :development do
   gem "spring"
   gem "spring-commands-rspec"
@@ -38,6 +39,8 @@ end
 group :development, :test do
   gem 'factory_girl_rails'
   gem 'rspec-rails'
+  gem "poltergeist", github: "jonleighton/poltergeist"
+  gem "dotenv-rails"
 end
 group :test do
   gem 'capybara'

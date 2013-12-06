@@ -5,6 +5,7 @@ class Ability
     if user
       can :read, :all
       can :access, :home
+      can :update, :gardes
       if user.admin?
         can :access, :all
         cannot :destroy, :users, id: user.id
