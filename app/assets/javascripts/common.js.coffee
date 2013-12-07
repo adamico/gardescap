@@ -3,9 +3,6 @@ $ = jQuery
 $ ->
   $(".editable").editable()
   $(".alert-message").alert()
-  $("[rel=tooltip]").tooltip
-    delay:
-      hide: 100
 
   $.fn.select2.defaults.allowClear = true
   $.fn.select2.defaults.formatNoMatches = -> "Aucun résultat"
