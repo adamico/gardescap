@@ -277,6 +277,9 @@ GEM
     warden (1.2.3)
       rack (>= 1.0)
     websocket-driver (0.3.1)
+    x-editable-rails (1.5.1)
+      cancan
+      railties
     xpath (2.0.0)
       nokogiri (~> 1.3)
 
@@ -326,3 +329,4 @@ DEPENDENCIES
   uglifier (>= 1.3.0)
   unicorn
   unicorn-rails
+  x-editable-rails

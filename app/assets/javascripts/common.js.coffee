@@ -1,6 +1,7 @@
 $ = jQuery
 
 $ ->
+  $(".editable").editable()
   $(".alert-message").alert()
   $("[rel=tooltip]").tooltip
     delay:

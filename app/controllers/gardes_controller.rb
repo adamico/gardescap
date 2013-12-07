@@ -1,4 +1,7 @@
 class GardesController < ApplicationController
+  respond_to :json
+  load_and_authorize_resource
+
   def tags
     @tags = ActsAsTaggableOn::Tag.named_like(params[:q])
     respond_to do |format|
@@ -13,17 +16,13 @@ class GardesController < ApplicationController
   end
 
   def update
-    @garde = Garde.find(params[:id])
-    if @garde.update(garde_params)
-      redirect_to gardes_prochain_choix_path, notice: "La garde #{params[:id]} a été mise à jour"
-    else
-      render :edit
-    end
+    @garde.update(garde_params)
+    respond_with @garde
   end
 
   private
 
   def garde_params
-    params.require(:garde).permit(:candidate_list)
+    params.require(:garde).permit(candidate_list: [])
   end
 end

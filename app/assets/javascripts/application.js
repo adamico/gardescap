@@ -17,4 +17,6 @@
 //= require bootstrap
 //= require select2
 //= require common
+//= require editable/bootstrap-editable
+//= require editable/rails
 //= require gardes
