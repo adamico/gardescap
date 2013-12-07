@@ -23,6 +23,6 @@
               %th= l(date, format: :superlong)
               - ["MatinJ", "MatinS", "AMJ", "AMS", "Nuit Courte", "Nuit Longue"].each do |time|
                 - if (garde = gardes.select {|garde| garde.time == time}.first)
-                  %td= link_to garde.candidate_list, "#", class: "tags", data: {type: "select2", url: garde_path(garde), value: garde.candidate_list, name: "candidate_list"}
+                  %td= link_to garde.candidate_list, "#", class: "tags", data: {placeholder: "saisir votre nom", type: "select2", url: garde_path(garde), value: garde.candidate_list, name: "candidate_list"}
                 - else
                   %td &nbsp;

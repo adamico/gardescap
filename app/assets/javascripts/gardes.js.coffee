@@ -7,12 +7,12 @@ $ = jQuery
 $ ->
   $(".tags").each ->
     $(@).editable
-      inputclass: "input-large"
       params: (params) ->
         data = {garde: {}}
         data["garde"][params.name] = params.value
         return data
       select2:
+        width: "300px"
         minimumInputLength: 3
         tags: true
         tokenSeparators: [","]
