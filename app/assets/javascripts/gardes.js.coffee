@@ -14,6 +14,7 @@ $ ->
       select2:
         width: "300px"
         minimumInputLength: 3
+        maximumSelectionSize: 3
         tags: true
         tokenSeparators: [","]
         createSearchChoice: (term, data) ->
