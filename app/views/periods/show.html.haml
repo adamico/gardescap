@@ -4,7 +4,7 @@
   %ul.nav.nav-tabs
     - @mois.each_with_index do |mois, index|
       %li{class: index == 0 ? "active" : nil}
-        %a{href: "##{mois}", data: {toggle: "tab"}} #{mois}
+        %a{href: "##{mois}", data: {toggle: "tab"}} #{mois.gsub(/-\d{4}/, "").titleize}
 
   .tab-content
     - @mois.each_with_index do |mois, index|
@@ -13,7 +13,7 @@
         %table.table.table-bordered
           %thead
             %tr
-              %th #{mois}
+              %th #{mois.titleize}
               %th{colspan: 2} Matin
               %th{colspan: 2} Après-midi
               %th Nuit courte

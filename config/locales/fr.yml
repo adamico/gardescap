@@ -13,6 +13,7 @@ fr:
       long: "%e %B %Y"
       superlong: "%A %d/%m/%Y"
       month_only: "%B"
+      month_year: "%B-%Y"
     day_names:
       - dimanche
       - lundi
