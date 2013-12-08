@@ -1,5 +1,7 @@
 class GardesController < ApplicationController
-  respond_to :json
+  respond_to :json, only: [:tags, :update]
+  respond_to :js, only: :create
+  respond_to :html
   load_and_authorize_resource
 
   def tags
@@ -15,6 +17,16 @@ class GardesController < ApplicationController
   def show
   end
 
+  def new
+  end
+
+  def create
+    @garde = Garde.create(garde_params)
+    respond_to do |format|
+      format.js
+    end
+  end
+
   def update
     @garde.update(garde_params)
     respond_with @garde
@@ -23,6 +35,6 @@ class GardesController < ApplicationController
   private
 
   def garde_params
-    params.require(:garde).permit(candidate_list: [])
+    params.require(:garde).permit(:date, :time, candidate_list: [])
   end
 end

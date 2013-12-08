@@ -10,7 +10,7 @@
     - @mois.each_with_index do |mois, index|
       - gardes_by_month = @mois_gardes[mois]
       .tab-pane{id: mois, class: index == 0 ? "active" : nil}
-        %table.table.table-bordered
+        %table.table.table-bordered.table-striped
           %thead
             %tr
               %th #{mois.titleize}
@@ -21,11 +21,13 @@
           - gardes_by_month.group_by(&:date).each do |date, gardes|
             %tr
               %th= l(date, format: :superlong)
-              - ["MatinJ", "MatinS", "AMJ", "AMS", "Nuit Courte", "Nuit Longue"].each do |time|
-                - if (garde = gardes.select {|garde| garde.time == time}.first)
-                  %td= link_to garde.candidate_list, "#", class: "tags", data: {placeholder: "saisir votre nom ici", type: "select2", url: garde_path(garde), value: garde.candidate_list, name: "candidate_list"}
-                - else
-                  %td &nbsp;
+              - Garde::TIMES.each do |time|
+                %td{id: [date, time].join("-")}
+                  - if (garde = gardes.select {|garde| garde.time == time}.first)
+                    = render 'gardes/garde', garde: garde, time: time, date: date
+                  - else
+                    &nbsp;
+                    = link_to content_tag(:span, nil, class: "glyphicon glyphicon-plus"), gardes_path(garde: {date: date, time: time}), method: :post, remote: true, class: "btn btn-default btn-xs", title: "Nouvelle garde - #{time} - #{l(date)}"if can?(:create, :gardes)
 
   %button.btn.btn-primary.btn-lg{data: {toggle: "modal", target: "#modeEmploi"}} Ouvrir le mode d'emploi
 

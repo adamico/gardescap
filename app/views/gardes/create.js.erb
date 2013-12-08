@@ -1,0 +1,5 @@
+<% date, time = params[:garde][:date], params[:garde][:time] %>
+$td = $("#<%= date %>-<%= time %>");
+td_content = "<%= j(render "gardes/garde", date: date, time: time, garde: @garde) %>";
+$td.html(td_content);
+$td.find("a").attachEditable();
