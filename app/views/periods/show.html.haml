@@ -1,57 +1,60 @@
-%h2= "Choix des gardes " + @period.name
+%h2.text-center= "Choix des gardes " + @period.name
 
-- unless @gardes.any?
-  %p Aucune garde saisie sur cette periode
-  = link_to "Clicker ici pour initialiser les gardes", "#", class: "btn btn-success btn-lg"
+- if @gardes.any?
+  %ul.nav.nav-tabs
+    - @mois.each_with_index do |mois, index|
+      %li{class: index == 0 ? "active" : nil}
+        %a{href: "##{mois}", data: {toggle: "tab"}} #{I18n.t("date.month_names")[mois]}
 
-%ul.nav.nav-tabs
-  - @mois.each_with_index do |mois, index|
-    %li{class: index == 0 ? "active" : nil}
-      %a{href: "##{mois}", data: {toggle: "tab"}} #{I18n.t("date.month_names")[mois]}
+  .tab-content
+    - @mois.each_with_index do |mois, index|
+      .tab-pane{id: mois, class: index == 0 ? "active" : nil}
+        %table.table.table-bordered.table-striped
+          %thead
+            %tr
+              %th #{I18n.t("date.month_names")[mois]}
+              %th{colspan: 2} Matin
+              %th{colspan: 2} Après-midi
+              %th Nuit courte
+              %th Nuit longue
+          - @period.days(mois).each do |date|
+            %tr
+              %th= l(date, format: :superlong)
+              - Garde::TIMES.each do |time|
+                %td{id: [date, time].join("-")}
+                  - if (garde = Garde.where(date: date).where(time: time).take)
+                    = render 'gardes/garde', garde: garde, time: time, date: date
+                  - else
+                    &nbsp;
+                    = link_to content_tag(:span, nil, class: "glyphicon glyphicon-plus"), gardes_path(garde: {date: date, time: time}), method: :post, remote: true, class: "btn btn-default btn-xs", title: "Nouvelle garde - #{time} - #{l(date)}"if can?(:create, :gardes)
 
-.tab-content
-  - @mois.each_with_index do |mois, index|
-    .tab-pane{id: mois, class: index == 0 ? "active" : nil}
-      %table.table.table-bordered.table-striped
-        %thead
-          %tr
-            %th #{I18n.t("date.month_names")[mois]}
-            %th{colspan: 2} Matin
-            %th{colspan: 2} Après-midi
-            %th Nuit courte
-            %th Nuit longue
-        - @period.days(mois).each do |date|
-          %tr
-            %th= l(date, format: :superlong)
-            - Garde::TIMES.each do |time|
-              %td{id: [date, time].join("-")}
-                - if (garde = Garde.where(date: date).where(time: time).take)
-                  = render 'gardes/garde', garde: garde, time: time, date: date
-                - else
-                  &nbsp;
-                  = link_to content_tag(:span, nil, class: "glyphicon glyphicon-plus"), gardes_path(garde: {date: date, time: time}), method: :post, remote: true, class: "btn btn-default btn-xs", title: "Nouvelle garde - #{time} - #{l(date)}"if can?(:create, :gardes)
+  %button.btn.btn-primary.btn-lg{data: {toggle: "modal", target: "#modeEmploi"}} Ouvrir le mode d'emploi
 
-%button.btn.btn-primary.btn-lg{data: {toggle: "modal", target: "#modeEmploi"}} Ouvrir le mode d'emploi
+  .modal.fade#modeEmploi{tabindex: "-#", role: "dialog", aria: {labelledby: "modeEmploiModal", hidden: "true"}}
+    .modal-dialog
+      .modal-content
+        .modal-header
+          %button.close{type: "button", "data-dismiss" => "modal", "aria-hidden" => "true"} &times;
+          %h4.modal-title#modeEmploiModal Mode d'emploi
+        .modal-body
+          %p Choisissez le moi en clickant sur les noms des mois en haut de la table.
+          %p Pour vous positionner sur une plage de garde, clickez sur 'Personne' si celle-ci est encore vide ou sur la liste des noms déjà présent.
+          .alert.alert-warning
+            %strong Attention ! Chaque plage peut contenir maximum 3 noms. Vous pouvez en principe effacer votre nom et tous les autres qui sont déjà rentrés dans une plage, mais veuillez prévenir la personne en question pour voir si elle est d'accord. Les plages complètes feront de toute façon l'object d'une discussion le jour du choix des gardes.
+          %p Si vous avez clické sur une plage vide vous pouvez simplement rentrer votre nom après avoir clické sur la phrase 'saisir votre nom ici' ; si vous avez clické sur la liste des noms et si celle-ci comporte moins de 3 éléments clickez à coté de la dernière pastille avec un nom et rentrez le votre.
+          %p
+            Dans tous les cas, une fois votre nom rentré dans le champ appuyez sur le bouton
+            %button.btn.btn-primary.btn-sm.disabled
+              %span.glyphicon.glyphicon-ok
+            pour valider la modification ou sur le bouton
+            %button.btn.btn-default.btn-sm.disabled
+              %span.glyphicon.glyphicon-remove
+            pour abandonner vos modifications.
+        .modal-footer
+          %button.btn.btn-default{type: "button", "data-dismiss" => "modal"} Fermer
 
-.modal.fade#modeEmploi{tabindex: "-#", role: "dialog", aria: {labelledby: "modeEmploiModal", hidden: "true"}}
-  .modal-dialog
-    .modal-content
-      .modal-header
-        %button.close{type: "button", "data-dismiss" => "modal", "aria-hidden" => "true"} &times;
-        %h4.modal-title#modeEmploiModal Mode d'emploi
-      .modal-body
-        %p Choisissez le moi en clickant sur les noms des mois en haut de la table.
-        %p Pour vous positionner sur une plage de garde, clickez sur 'Personne' si celle-ci est encore vide ou sur la liste des noms déjà présent.
-        .alert.alert-warning
-          %strong Attention ! Chaque plage peut contenir maximum 3 noms. Vous pouvez en principe effacer votre nom et tous les autres qui sont déjà rentrés dans une plage, mais veuillez prévenir la personne en question pour voir si elle est d'accord. Les plages complètes feront de toute façon l'object d'une discussion le jour du choix des gardes.
-        %p Si vous avez clické sur une plage vide vous pouvez simplement rentrer votre nom après avoir clické sur la phrase 'saisir votre nom ici' ; si vous avez clické sur la liste des noms et si celle-ci comporte moins de 3 éléments clickez à coté de la dernière pastille avec un nom et rentrez le votre.
-        %p
-          Dans tous les cas, une fois votre nom rentré dans le champ appuyez sur le bouton
-          %button.btn.btn-primary.btn-sm.disabled
-            %span.glyphicon.glyphicon-ok
-          pour valider la modification ou sur le bouton
-          %button.btn.btn-default.btn-sm.disabled
-            %span.glyphicon.glyphicon-remove
-          pour abandonner vos modifications.
-      .modal-footer
-        %button.btn.btn-default{type: "button", "data-dismiss" => "modal"} Fermer
+- else
+  .row
+    .col-lg-offset-4.col-lg-4
+      %p Aucune garde saisie sur cette periode
+      = link_to "Clicker ici pour initialiser les gardes", "#", class: "btn btn-success btn-lg"

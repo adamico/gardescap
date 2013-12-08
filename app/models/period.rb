@@ -24,6 +24,21 @@ class Period < ActiveRecord::Base
     end
   end
 
+  def create_gardes
+    ActiveRecord::Base.transaction do
+      days.each do |day|
+        Garde::TIMES.each do |time|
+          if time == "MatinJ" or time == "MatinS"
+            next unless day.sunday?
+          elsif time == "AMJ" or time == "AMS"
+            next unless day.saturday? or day.sunday?
+          end
+          Garde.create(date: day, time: time)
+        end
+      end
+    end
+  end
+
   private
 
   def range
