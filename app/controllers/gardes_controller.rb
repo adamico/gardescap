@@ -35,6 +35,7 @@ class GardesController < ApplicationController
   private
 
   def garde_params
+    params[:garde] = {candidate_list: []} unless params[:garde].present?
     params.require(:garde).permit(:date, :time, candidate_list: [])
   end
 end

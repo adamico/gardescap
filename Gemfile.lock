@@ -87,6 +87,9 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
+    capybara-select2 (0.0.8)
+      capybara
+      rspec
     celluloid (0.15.2)
       timers (~> 1.1.0)
     cliver (0.3.1)
@@ -293,6 +296,7 @@ DEPENDENCIES
   bootstrap-sass!
   cancan!
   capybara
+  capybara-select2
   coffee-rails (~> 4.0.0)
   database_cleaner (= 1.0.1)
   devise

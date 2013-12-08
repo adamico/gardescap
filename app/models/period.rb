@@ -11,7 +11,7 @@ class Period < ActiveRecord::Base
     months_in_period = ((ends_at - starts_at).to_f / 30).round
     result = []
     (0..(months_in_period-1)).each do |i|
-      result << I18n.l(starts_at + i.months, format: :month_year)
+      result << (starts_at + i.months).month
     end
     result
   end
