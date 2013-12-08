@@ -57,4 +57,4 @@
   .row
     .col-lg-offset-4.col-lg-4
       %p Aucune garde saisie sur cette periode
-      = link_to "Clicker ici pour initialiser les gardes", "#", class: "btn btn-success btn-lg"
+      = link_to "Clicker ici pour initialiser les gardes", populate_period_path(id: @period.id), class: "btn btn-success btn-lg"

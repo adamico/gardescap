@@ -8,6 +8,12 @@ class PeriodsController < ApplicationController
     @mois = @period.mois
   end
 
+  def populate
+    @period = Period.find(params[:id])
+    @period.create_gardes
+    redirect_to @period, notice: "Le tableau a été prerempli avec les gardes, veuillez rajouter manuellement les jours fériés."
+  end
+
   private
 
   def xeditable?
