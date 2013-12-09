@@ -1,6 +1,7 @@
 class PeriodsController < ApplicationController
   helper_method :xeditable?
   respond_to :html, :json
+  respond_to :xls, only: :show
   load_and_authorize_resource
 
   def show
@@ -8,6 +9,7 @@ class PeriodsController < ApplicationController
     @gardes = @period.gardes
     @mois_gardes = @gardes.group_by {|garde| garde.date.month}
     @mois = @period.mois
+    respond_with @period
   end
 
   def new
