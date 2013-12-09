@@ -43,10 +43,7 @@
                 %th= l(date, format: :superlong)
                 - Garde::TIMES.each do |time|
                   %td{id: [date, time].join("-")}
-                    - if (garde = gardes.select {|g| g.date == date && g.time == time}.first)
-                      = render 'gardes/garde', garde: garde, time: time, date: date
-                    - else
-                      = render 'gardes/build_garde', time: time, date: date, period: @period
+                    = render 'gardes/garde', time: time, date: date, period_id: @period.id
 
 - else
   .row
