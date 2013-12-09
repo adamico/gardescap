@@ -1,8 +1,9 @@
 Gardescap::Application.routes.draw do
   devise_for :users
 
-  get "gardes/prochain_choix", to: "periods#show"
-  resources :periods do
+  get "choix", to: "periods#show"
+  get "tableau_actuel", to: "periods#show"
+  resources :periods, as: :tableaux, path: "/tableaux" do
     get :populate, on: :member
   end
   get "tags", to: "gardes#tags", as: "gardes_tags"
