@@ -29,6 +29,7 @@ class GardesController < ApplicationController
 
   def update
     @garde.update(garde_params)
+    expire_fragment "#{@garde.date.month}_gardes"
     respond_with @garde
   end
 
@@ -44,6 +45,6 @@ class GardesController < ApplicationController
 
   def garde_params
     params[:garde] = {candidate_list: []} unless params[:garde].present?
-    params.require(:garde).permit(:date, :time, candidate_list: [])
+    params.require(:garde).permit(:date, :time, :period_id, candidate_list: [])
   end
 end

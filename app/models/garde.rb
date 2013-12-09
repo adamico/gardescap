@@ -5,4 +5,6 @@ class Garde < ActiveRecord::Base
   TIMES = ["MatinJ", "MatinS", "AMJ", "AMS", "Nuit Courte", "Nuit Longue"]
 
   validates :date, :time, presence: true
+
+  belongs_to :period, touch: true
 end

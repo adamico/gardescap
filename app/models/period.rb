@@ -1,15 +1,14 @@
 class Period < ActiveRecord::Base
   default_scope order(:ends_at)
+
+  has_many :gardes
+
   def self.active
     Period.where(state: :closed)
   end
 
   def name
     I18n.l(starts_at).to_s + " - " + I18n.l(ends_at).to_s
-  end
-
-  def gardes
-    Garde.where(date: starts_at..ends_at).order(:date)
   end
 
   def mois
@@ -38,7 +37,7 @@ class Period < ActiveRecord::Base
           elsif time == "AMJ" or time == "AMS"
             next unless day.saturday? or day.sunday?
           end
-          Garde.find_or_create_by(date: day, time: time)
+          Garde.create_with(period: self).find_or_create_by(date: day, time: time)
         end
       end
     end

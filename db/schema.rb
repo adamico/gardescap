@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131209091624) do
+ActiveRecord::Schema.define(version: 20131209135739) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,7 +22,10 @@ ActiveRecord::Schema.define(version: 20131209091624) do
     t.string   "state"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "period_id"
   end
+
+  add_index "gardes", ["period_id"], name: "index_gardes_on_period_id", using: :btree
 
   create_table "periods", force: true do |t|
     t.date     "starts_at"
