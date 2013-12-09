@@ -3,9 +3,7 @@
   .form-group
     = f.label :starts_at, "Debut de la période", class: "sr-only"
     = f.date_field :starts_at, class: "form-control", placeholder: "Du"
-
   .form-group
     = f.label :ends_at, "Fin de la période", class: "sr-only"
     = f.date_field :ends_at, class: "form-control", placeholder: "Au"
-
   = f.submit "Enregistrer", class: "btn btn-success"

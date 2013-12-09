@@ -1,0 +1,4 @@
+<% date, time = @garde.date, @garde.time %>
+$td = $("#<%= date %>-<%= time %>");
+td_content = "<%= j(render "gardes/build_garde", date: date, time: time) %>";
+$td.html(td_content);

@@ -1,5 +1,24 @@
 %h2.text-center= "Choix des gardes " + @period.name
 
+.row
+  .col-lg-offset-4.col-lg-4
+    %button.btn.btn-primary.btn-lg{data: {toggle: "modal", target: "#modeEmploi"}} Ouvrir le mode d'emploi
+
+%br
+
+- if current_user.admin?
+  .row
+    .col-lg-2
+      %h3 Administration
+    .col-lg-8
+      .btn-group
+        = link_to "Initialiser les gardes sur la période", populate_period_path(id: @period.id), class: "btn btn-success btn-lg"
+        = link_to "Modifier ce tableau", edit_period_path(@period), class: "btn btn-lg btn-default"
+      = form_for @period, html: {class: "form-inline state_machine", role: "form"} do |f|
+        = f.hidden_field :state_event, value: f.object.state_transitions.first.event, class: "form-control"
+        = f.submit t("activerecord.state_machines.period.events." + @period.state_transitions.first.event.to_s), class: "btn btn-info btn-lg"
+  %br
+
 - if @gardes.any?
   %ul.nav.nav-tabs
     - @mois.each_with_index do |mois, index|
@@ -25,10 +44,7 @@
                   - if (garde = Garde.where(date: date).where(time: time).take)
                     = render 'gardes/garde', garde: garde, time: time, date: date
                   - else
-                    &nbsp;
-                    = link_to content_tag(:span, nil, class: "glyphicon glyphicon-plus"), gardes_path(garde: {date: date, time: time}), method: :post, remote: true, class: "btn btn-default btn-xs", title: "Nouvelle garde - #{time} - #{l(date)}"if can?(:create, :gardes)
-
-  %button.btn.btn-primary.btn-lg{data: {toggle: "modal", target: "#modeEmploi"}} Ouvrir le mode d'emploi
+                    = render 'gardes/build_garde', time: time, date: date
 
   .modal.fade#modeEmploi{tabindex: "-#", role: "dialog", aria: {labelledby: "modeEmploiModal", hidden: "true"}}
     .modal-dialog
@@ -57,8 +73,3 @@
   .row
     .col-lg-offset-4.col-lg-4
       %p Aucune garde saisie sur cette periode
-
-.row
-  .col-lg-offset-4.col-lg-4
-    = link_to "Initialiser les gardes sur la période", populate_period_path(id: @period.id), class: "btn btn-success btn-lg" if can? :create, :gardes
-    = link_to "Modifier ce tableau", edit_period_path(@period), class: "btn btn-lg btn-default" if can? :update, :periods

@@ -1,6 +1,6 @@
 class GardesController < ApplicationController
   respond_to :json, only: [:tags, :update]
-  respond_to :js, only: :create
+  respond_to :js, only: [:create, :destroy]
   respond_to :html
   load_and_authorize_resource
 
@@ -30,6 +30,14 @@ class GardesController < ApplicationController
   def update
     @garde.update(garde_params)
     respond_with @garde
+  end
+
+  def destroy
+    @garde = Garde.find(params[:id])
+    @garde.destroy
+    respond_to do |format|
+      format.js
+    end
   end
 
   private
