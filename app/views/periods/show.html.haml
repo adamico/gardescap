@@ -1,9 +1,10 @@
 %h2.text-center= "Choix des gardes " + @period.name
 
 .row
-  .col-lg-offset-4.col-lg-4
-    %button.btn.btn-primary.btn-lg{data: {toggle: "modal", target: "#modeEmploi"}} Ouvrir le mode d'emploi
-    = link_to "Imprimer ce tableau", choix_path(format: "xls"), class: "btn btn-info btn-lg"
+  .col-lg-offset-3.col-lg-6
+    .btn-group
+      = link_to "Ouvrir le mode d'emploi", "#", class: "btn btn-primary btn-lg", data: {toggle: "modal", target: "#modeEmploi"}
+      = link_to "Imprimer ce tableau", choix_path(format: "xls"), class: "btn btn-info btn-lg"
 
 %br
 
