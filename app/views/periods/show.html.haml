@@ -27,6 +27,7 @@
 
   .tab-content
     - @mois.each_with_index do |mois, index|
+      - gardes = @mois_gardes[mois]
       .tab-pane{id: mois, class: index == 0 ? "active" : nil}
         %table.table.table-bordered.table-striped
           %thead
@@ -41,7 +42,7 @@
               %th= l(date, format: :superlong)
               - Garde::TIMES.each do |time|
                 %td{id: [date, time].join("-")}
-                  - if (garde = Garde.where(date: date).where(time: time).take)
+                  - if (garde = gardes.select {|g| g.date == date && g.time == time}.first)
                     = render 'gardes/garde', garde: garde, time: time, date: date
                   - else
                     = render 'gardes/build_garde', time: time, date: date

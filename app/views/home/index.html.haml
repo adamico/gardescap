@@ -2,5 +2,5 @@
   %h1 GardesCAP
   %p Gestion des gardes du CAP de Lyon
   %p
-    = link_to "Remplir le tableau pour le prochain choix de gardes (19/3/2014)", "#", class: "btn btn-primary btn-lg", role: "button"
-    = link_to "Voir le planning actuel", "#", class: "btn btn-info btn-lg", role: "button"
+    = link_to "Remplir le tableau pour le prochain choix de gardes #{@period.name}", choix_path, class: "btn btn-primary btn-lg", role: "button"
+    = link_to "Voir le planning actuel", tableau_actuel_path(id: last_period.id), class: "btn btn-info btn-lg", role: "button" if last_period

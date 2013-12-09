@@ -1,6 +1,7 @@
 class Period < ActiveRecord::Base
+  default_scope order(:ends_at)
   def self.active
-    Period.where(state: :active)
+    Period.where(state: :closed)
   end
 
   def name

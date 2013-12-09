@@ -15,4 +15,10 @@ class ApplicationController < ActionController::Base
     Rails.logger.debug "Access denied on #{exception.action} #{exception.subject.inspect}"
     redirect_to new_user_session_path, alert: exception.message
   end
+
+  helper_method :last_period
+
+  def last_period
+    @last_period ||= Period.active.last
+  end
 end
