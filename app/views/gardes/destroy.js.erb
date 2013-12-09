@@ -1,4 +1,4 @@
 <% date, time, period_id = @garde.date, @garde.time, @garde.period_id %>
 $td = $("#<%= date %>-<%= time %>");
-td_content = "<%= j(render "gardes/garde", date: date, time: time, period_id: period_id) %>";
+td_content = "<%= j(render "gardes/garde", date: date, time: time, garde: nil, period_id: period_id) %>";
 $td.html(td_content);

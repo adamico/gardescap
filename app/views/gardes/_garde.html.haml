@@ -1,5 +1,3 @@
-- period = Period.find(period_id.to_i)
-- garde = period.gardes.select {|g| g.date == date.to_date && g.time == time}.first
 - if garde
   = link_to content_tag(:span, nil, class: "glyphicon glyphicon-remove"), garde_path(garde), method: :delete, remote: true,
     title: "Détruire garde - #{time} - #{l(date.to_date)}",
@@ -12,4 +10,4 @@
     value: garde.candidate_list, name: "candidate_list"}
 
 - else
-  = link_to content_tag(:span, nil, class: "glyphicon glyphicon-plus"), gardes_path(garde: {date: date, time: time, period_id: period.id}), method: :post, remote: true, class: "btn btn-default btn-xs", title: "Nouvelle garde - #{time} - #{l(date.to_date)}"if can?(:create, :gardes)
+  = link_to content_tag(:span, nil, class: "glyphicon glyphicon-plus"), gardes_path(garde: {date: date, time: time, period_id: period_id}), method: :post, remote: true, class: "btn btn-default btn-xs", title: "Nouvelle garde - #{time} - #{l(date.to_date)}"if can?(:create, :gardes)
