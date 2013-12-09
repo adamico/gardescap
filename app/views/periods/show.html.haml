@@ -57,4 +57,8 @@
   .row
     .col-lg-offset-4.col-lg-4
       %p Aucune garde saisie sur cette periode
-      = link_to "Clicker ici pour initialiser les gardes", choix_path(id: @period.id), class: "btn btn-success btn-lg"
+
+.row
+  .col-lg-offset-4.col-lg-4
+    = link_to "Initialiser les gardes sur la période", populate_period_path(id: @period.id), class: "btn btn-success btn-lg" if can? :create, :gardes
+    = link_to "Modifier ce tableau", edit_period_path(@period), class: "btn btn-lg btn-default" if can? :update, :periods
