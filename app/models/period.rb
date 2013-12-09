@@ -37,7 +37,7 @@ class Period < ActiveRecord::Base
           elsif time == "AMJ" or time == "AMS"
             next unless day.saturday? or day.sunday?
           end
-          Garde.create(date: day, time: time)
+          Garde.find_or_create_by(date: day, time: time)
         end
       end
     end
