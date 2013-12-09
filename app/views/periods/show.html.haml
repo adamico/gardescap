@@ -20,31 +20,30 @@
   %br
 
 - if @gardes.any?
-  - cache @period do
-    %ul.nav.nav-tabs
-      - @mois.each_with_index do |mois, index|
-        %li{class: index == 0 ? "active" : nil}
-          %a{href: "##{mois}", data: {toggle: "tab"}} #{I18n.t("date.month_names")[mois]}
+  %ul.nav.nav-tabs
+    - @mois.each_with_index do |mois, index|
+      %li{class: index == 0 ? "active" : nil}
+        %a{href: "##{mois}", data: {toggle: "tab"}} #{I18n.t("date.month_names")[mois]}
 
-    .tab-content
-      - @mois.each_with_index do |mois, index|
-        - gardes = @mois_gardes[mois]
-        .tab-pane{id: mois, class: index == 0 ? "active" : nil}
-          %table.table.table-bordered.table-striped
-            %thead
-              %tr
-                %th #{I18n.t("date.month_names")[mois]}
-                %th{colspan: 2} Matin
-                %th{colspan: 2} Après-midi
-                %th Nuit courte
-                %th Nuit longue
-            - @period.days(mois).each do |date|
-              %tr
-                %th= l(date, format: :superlong)
-                - Garde::TIMES.each do |time|
-                  %td{id: [date, time].join("-")}
-                    - cache (garde = @period.gardes.select {|g| g.date == date.to_date && g.time == time}.first) do
-                      = render 'gardes/garde', time: time, date: date, garde: garde, period_id: @period.id
+  .tab-content
+    - @mois.each_with_index do |mois, index|
+      - gardes = @mois_gardes[mois]
+      .tab-pane{id: mois, class: index == 0 ? "active" : nil}
+        %table.table.table-bordered.table-striped
+          %thead
+            %tr
+              %th #{I18n.t("date.month_names")[mois]}
+              %th{colspan: 2} Matin
+              %th{colspan: 2} Après-midi
+              %th Nuit courte
+              %th Nuit longue
+          - @period.days(mois).each do |date|
+            %tr
+              %th= l(date, format: :superlong)
+              - Garde::TIMES.each do |time|
+                %td{id: [date, time].join("-")}
+                  - garde = @period.gardes.select {|g| g.date == date.to_date && g.time == time}.first
+                  = render 'gardes/garde', time: time, date: date, garde: garde, period_id: @period.id
 
 - else
   .row
