@@ -13,6 +13,14 @@ class PeriodsController < ApplicationController
   def new
   end
 
+  def edit
+  end
+
+  def update
+    @period.update(period_params)
+    respond_with @period
+  end
+
   def create
     @period.create(period_params)
     respond_with @period
@@ -21,13 +29,13 @@ class PeriodsController < ApplicationController
   def populate
     @period = Period.find(params[:id])
     @period.create_gardes
-    redirect_to @period, notice: "Le tableau a été prerempli avec les gardes, veuillez rajouter manuellement les jours fériés."
+    redirect_to choix_path, notice: "Le tableau a été prerempli avec les gardes, veuillez rajouter manuellement les jours fériés."
   end
 
   private
 
   def period_params
-    params.require(:period).permid(:starts_at, :ends_at, :state)
+    params.require(:period).permit(:starts_at, :ends_at, :state)
   end
 
   def xeditable?
