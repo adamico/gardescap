@@ -1,0 +1,9 @@
+fr:
+  activerecord:
+    state_machines:
+      period:
+        states:
+          closed: "Bouclé"
+          open:   "Ouvert"
+        events:
+          close:  "Boucler"

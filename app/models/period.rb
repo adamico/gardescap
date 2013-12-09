@@ -43,6 +43,12 @@ class Period < ActiveRecord::Base
     end
   end
 
+  state_machine initial: :open do
+    event :close do
+      transition open: :closed
+    end
+  end
+
   private
 
   def range
