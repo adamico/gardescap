@@ -1,11 +1,21 @@
 class PeriodsController < ApplicationController
   helper_method :xeditable?
+  respond_to :html, :json
+  load_and_authorize_resource
 
   def show
     @period = params[:id].present? ? Period.find(params[:id]) : Period.last
     @gardes = @period.gardes
     @mois_gardes = @gardes.group_by {|garde| garde.date.month}
     @mois = @period.mois
+  end
+
+  def new
+  end
+
+  def create
+    @period.create(period_params)
+    respond_with @period
   end
 
   def populate
@@ -15,6 +25,10 @@ class PeriodsController < ApplicationController
   end
 
   private
+
+  def period_params
+    params.require(:period).permid(:starts_at, :ends_at, :state)
+  end
 
   def xeditable?
     true

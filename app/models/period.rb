@@ -1,4 +1,8 @@
 class Period < ActiveRecord::Base
+  def self.active
+    Period.where(state: :active)
+  end
+
   def name
     I18n.l(starts_at).to_s + " - " + I18n.l(ends_at).to_s
   end
