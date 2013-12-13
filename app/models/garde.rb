@@ -1,4 +1,6 @@
 class Garde < ActiveRecord::Base
+  include PublicActivity::Common
+
   acts_as_ordered_taggable
   acts_as_ordered_taggable_on :candidates
 

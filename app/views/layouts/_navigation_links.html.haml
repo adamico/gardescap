@@ -8,4 +8,5 @@
       %li= link_to "Nouveau tableau de gardes", new_period_path
 %li= link_to "Consulter le tableau actuel", tableau_actuel_path(id: last_period.id, format: "xls") if last_period
 %li= link_to "Remplir prochain tableau", choix_path
+%li= link_to "Activité", activities_path
 %li= link_to "Se déconnecter", destroy_user_session_path, method: :delete if user_signed_in?

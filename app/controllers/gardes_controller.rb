@@ -22,6 +22,7 @@ class GardesController < ApplicationController
 
   def create
     @garde = Garde.create(garde_params)
+    @garde.create_activity :create, owner: current_user
     respond_to do |format|
       format.js
     end
@@ -29,13 +30,15 @@ class GardesController < ApplicationController
 
   def update
     @garde.update(garde_params)
-    expire_fragment "#{@garde.date.month}_gardes"
+    @garde.activity_params = {candidates: @garde.candidate_list}
+    @garde.create_activity :update, owner: current_user
     respond_with @garde
   end
 
   def destroy
     @garde = Garde.find(params[:id])
     @garde.destroy
+    @garde.create_activity :destroy, owner: current_user
     respond_to do |format|
       format.js
     end

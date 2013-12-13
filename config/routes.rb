@@ -8,5 +8,6 @@ Gardescap::Application.routes.draw do
   end
   get "tags", to: "gardes#tags", as: "gardes_tags"
   resources :gardes
+  resources :activities
   root to: "home#index"
 end
