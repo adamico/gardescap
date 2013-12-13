@@ -22,6 +22,8 @@ gem 'select2-rails', github: "argerim/select2-rails"
 gem 'x-editable-rails'
 gem 'state_machine'
 gem 'public_activity'
+gem "activerecord-import", ">= 0.2.0"
+
 group :development do
   gem "spring"
   gem "spring-commands-rspec"

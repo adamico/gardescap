@@ -29,18 +29,20 @@ class Period < ActiveRecord::Base
   end
 
   def create_gardes
-    ActiveRecord::Base.transaction do
-      days.each do |day|
-        Garde::TIMES.each_key do |time|
-          if time == "mj" or time == "ms"
-            next unless day.sunday?
-          elsif time == "amj" or time == "ams"
-            next unless day.saturday? or day.sunday?
-          end
-          Garde.create_with(period: self).find_or_create_by(date: day, time: time)
+    gardes = []
+    days.each do |day|
+      Garde::TIMES.each_key do |time|
+        if time == "mj" or time == "ms"
+          next unless day.sunday?
+        elsif time == "amj" or time == "ams"
+          next unless day.saturday? or day.sunday?
         end
+        garde = Garde.find_or_initialize_by(date: day, time: time)
+        garde.period = self
+        gardes << garde if garde.new_record?
       end
     end
+    Garde.import gardes
   end
 
   state_machine initial: :open do
