@@ -2,9 +2,4 @@
 
 - @activities.each do |activity|
   = div_for activity, class: "activity" do
-    = activity.owner.name
     = render_activity activity
-    &nbsp;
-    (
-    %span.date= l(activity.created_at, format: :long)
-    )

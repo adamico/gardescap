@@ -1,3 +1,1 @@
-a mis à jour la garde du #{I18n.l activity.trackable.date} avec les candidats suivants :
-%span.label.label-primary
-  - candidates = activity.parameters[:candidates].present? ? activity.parameters[:candidates] : "aucun"
+= ActivityPresenter.new(activity, self).candidates_changes

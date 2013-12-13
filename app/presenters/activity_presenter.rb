@@ -6,7 +6,7 @@ class ActivityPresenter < SimpleDelegator
     @activity = activity
   end
 
-  def candidates_changes_for
+  def candidates_changes
     [date, owner, candidate_changes, garde_time, garde_date, nouvelle_liste].join(" ")
   end
 
@@ -27,15 +27,19 @@ class ActivityPresenter < SimpleDelegator
   end
 
   def garde_time
-    "à la #{garde.time}"
+    Garde::TIMES[garde.time].join
   end
 
   def candidate_changes
-    "a #{candidates_message} " + candidates_list
+    "#{candidates_message} " + candidates_list + candidates_message_preposition
   end
 
   def candidates_message
-    candidates_removed? ? "enlevé" : "rajouté"
+    candidates_removed? ? "a enlevé" : "a rajouté"
+  end
+
+  def candidates_message_preposition
+    candidates_removed? ? " de" : " à"
   end
 
   def candidates_removed?

@@ -4,7 +4,14 @@ class Garde < ActiveRecord::Base
   acts_as_ordered_taggable
   acts_as_ordered_taggable_on :candidates
 
-  TIMES = ["MatinJ", "MatinS", "AMJ", "AMS", "Nuit Courte", "Nuit Longue"]
+  TIMES = {
+    "mj"  => ["le ", "Matin Junior"],
+    "ms"  => ["le ", "Matin Sénior"],
+    "amj" => ["l'", "Après-midi Junior"],
+    "ams" => ["l'", "Après-midi Senior"],
+    "nc"  => ["la ", "Nuit Courte"],
+    "nl"  => ["la ", "Nuit Longue"]
+  }
 
   validates :date, :time, presence: true
 
