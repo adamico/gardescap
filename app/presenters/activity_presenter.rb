@@ -6,16 +6,16 @@ class ActivityPresenter < SimpleDelegator
     @activity = activity
   end
 
-  def candidates_changes
-    [date, owner, candidate_changes, garde_time, garde_date, nouvelle_liste].join(" ")
+  def render_activity_update
+    [date, owner, candidate_changes, garde_time, garde_date, nouvelle_liste].join(" ").html_safe
   end
 
   def date
-    l(activity.created_at, format: :long)
+    content_tag(:small, l(activity.created_at, format: :long)) + " -"
   end
 
   def owner
-    activity.owner
+    link_to activity.owner, "#"
   end
 
   def garde
@@ -31,7 +31,7 @@ class ActivityPresenter < SimpleDelegator
   end
 
   def candidate_changes
-    "#{candidates_message} " + candidates_list + candidates_message_preposition
+    "#{candidates_message} " + content_tag(:span, candidates_list, class: "label label-default") + candidates_message_preposition
   end
 
   def candidates_message
@@ -42,12 +42,18 @@ class ActivityPresenter < SimpleDelegator
     candidates_removed? ? " de" : " à"
   end
 
-  def candidates_removed?
-    new_candidates.length < old_candidates.length
+  def candidates_list
+    if candidates_removed?
+      [old_candidates - new_candidates].flatten.map(&:upcase).join(", ")
+    else
+      [new_candidates - old_candidates].flatten.map(&:upcase).join(", ")
+    end
   end
 
-  def candidates_list
-    candidates_removed? ? [old_candidates - new_candidates].join(", ") : [new_candidates - old_candidates].join(", ")
+  def candidates_removed?
+    new_list = new_candidates.length
+    old_list = old_candidates.length
+    new_list < old_list
   end
 
   def new_candidates
@@ -55,11 +61,15 @@ class ActivityPresenter < SimpleDelegator
   end
 
   def old_candidates
-    activity.parameters[:old_candidates]
+    if activity.parameters[:old_candidates].present?
+      activity.parameters[:old_candidates]
+    else
+      []
+    end
   end
 
   def nouvelle_liste
-    liste = garde.candidate_list.empty? ? "aucun candidat" : garde.candidate_list.join(", ")
-    "(Nouvelle liste : #{liste})"
+    liste = garde.candidate_list.empty? ? "aucun candidat" : garde.candidate_list.map {|c| content_tag(:span, c.upcase, class: "label label-default")}.join("&nbsp;")
+    "- Nouvelle liste : #{liste}"
   end
 end

@@ -42,7 +42,7 @@
           - @period.days(mois).each do |date|
             %tr
               %th= l(date, format: :superlong)
-              - Garde::TIMES.each do |time|
+              - Garde::TIMES.each_key do |time|
                 %td{id: [date, time].join("-")}
                   - garde = @period.gardes.select {|g| g.date == date.to_date && g.time == time}.first
                   = render 'gardes/garde', time: time, date: date, garde: garde, period_id: @period.id

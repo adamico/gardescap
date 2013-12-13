@@ -29,7 +29,7 @@ class GardesController < ApplicationController
   end
 
   def update
-    @garde.activity_params = {old_candidates: @garde.candidate_list, new_candidates: garde_params[:candidate_list]}
+    @garde.activity_params = {old_candidates: @garde.candidate_list_was.split(", "), new_candidates: garde_params[:candidate_list]}
     @garde.update(garde_params)
     @garde.create_activity :update, owner: current_user
     respond_with @garde
