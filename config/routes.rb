@@ -1,6 +1,7 @@
 Gardescap::Application.routes.draw do
   devise_for :users
 
+  delete "empty_activity", to: "activities#empty"
   get "choix", to: "periods#show"
   get "tableau_actuel", to: "periods#show"
   resources :periods, path: "/tableaux" do
