@@ -24,7 +24,7 @@ class PeriodsController < ApplicationController
   end
 
   def create
-    @period.create(period_params)
+    @period = Period.create(period_params)
     respond_with @period
   end
 
