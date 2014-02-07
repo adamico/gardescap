@@ -17,4 +17,5 @@
 //= require common
 //= require editable/bootstrap-editable
 //= require editable/rails
+//= require periods
 //= require gardes
