@@ -30,13 +30,6 @@ GIT
     cancan (2.0.0.alpha)
 
 GIT
-  remote: git://github.com/thomas-mcdonald/bootstrap-sass.git
-  revision: 99d5746f653e4d5fdccc5cb8d278b32b0b2c6bce
-  specs:
-    bootstrap-sass (3.0.3.0)
-      sass (~> 3.2)
-
-GIT
   remote: git://github.com/zlx/simple_form_bootstrap3.git
   revision: 8fe2e4ef642296061a8a42e432685c896203af22
   specs:
@@ -82,6 +75,8 @@ GEM
       erubis (>= 2.6.6)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
+    bootstrap-sass (3.0.3.0)
+      sass (~> 3.2)
     builder (3.1.4)
     byebug (2.4.1)
       columnize (~> 0.3.6)
@@ -316,7 +311,7 @@ DEPENDENCIES
   acts-as-taggable-on!
   better_errors
   binding_of_caller
-  bootstrap-sass!
+  bootstrap-sass (~> 3.0.3.0)
   byebug
   cancan!
   capybara
