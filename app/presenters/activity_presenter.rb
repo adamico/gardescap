@@ -27,7 +27,7 @@ class ActivityPresenter < SimpleDelegator
   end
 
   def garde_time
-    Garde::TIMES[garde.time].join
+    Garde::TIMES[garde.time].join(" ")
   end
 
   def candidate_changes
