@@ -32,13 +32,12 @@ class Period < ActiveRecord::Base
     gardes = []
     days.each do |day|
       Garde::TIMES.each_key do |time|
-        if time == "mj" or time == "ms"
-          next unless day.sunday?
-        elsif time == "amj" or time == "ams"
+        if time == "jj" or time == "js"
           next unless day.saturday? or day.sunday?
         end
         garde = Garde.find_or_initialize_by(date: day, time: time)
         garde.period = self
+        garde.save!
         gardes << garde if garde.new_record?
       end
     end
