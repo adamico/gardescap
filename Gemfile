@@ -17,7 +17,6 @@ gem 'simple_form', github: 'zlx/simple_form_bootstrap3'
 gem 'rails_12factor', group: :production
 gem 'newrelic_rpm'
 gem 'unicorn'
-gem "unicorn-rails"
 gem 'foreman'
 gem 'pg'
 gem 'acts-as-taggable-on', github: "mbleigh/acts-as-taggable-on"
