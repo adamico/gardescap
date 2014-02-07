@@ -34,11 +34,15 @@
         %table.table.table-bordered.table-striped
           %thead
             %tr
-              %th #{I18n.t("date.month_names")[mois]}
-              %th{colspan: 2} Matin
-              %th{colspan: 2} Après-midi
+              %th{rowspan: 2} #{I18n.t("date.month_names")[mois]}
+              %th{colspan: 2} 13h30-18h30 samedi / 8h30-18h30 dim.-fériés
               %th Nuit courte
               %th Nuit longue
+            %tr
+              %th &nbsp;
+              %th Senior
+              %th &nbsp;
+              %th Senior
           - @period.days(mois).each do |date|
             %tr
               %th= l(date, format: :superlong)
@@ -59,11 +63,10 @@
         %button.close{type: "button", "data-dismiss" => "modal", "aria-hidden" => "true"} &times;
         %h4.modal-title#modeEmploiModal Mode d'emploi
       .modal-body
-        %p Choisissez le moi en clickant sur les noms des mois en haut de la table.
+        %p Choisissez le mois en clickant sur les noms des mois en haut de la table.
         %p Pour vous positionner sur une plage de garde, clickez sur 'Personne' si celle-ci est encore vide ou sur la liste des noms déjà présent.
         .alert.alert-warning
-          %strong Attention ! Chaque plage peut contenir maximum 3 noms. Vous pouvez en principe effacer votre nom et tous les autres qui sont déjà rentrés dans une plage, mais veuillez prévenir la personne en question pour voir si elle est d'accord. Les plages complètes feront de toute façon l'object d'une discussion le jour du choix des gardes.
-        %p Si vous avez clické sur une plage vide vous pouvez simplement rentrer votre nom après avoir clické sur la phrase 'saisir votre nom ici' ; si vous avez clické sur la liste des noms et si celle-ci comporte moins de 3 éléments clickez à coté de la dernière pastille avec un nom et rentrez le votre.
+          %strong Chaque plage peut contenir maximum 3 noms. Vous pouvez effacer votre nom ainsi que ceux des autres personnes notées, bien sûr après avoir obtenu leur accord (de toutes manière, toute action est tracée et visible en clickant sur le lien "Activité" en haut de la page)
         %p
           Dans tous les cas, une fois votre nom rentré dans le champ appuyez sur le bouton
           %button.btn.btn-primary.btn-sm.disabled
@@ -72,6 +75,8 @@
           %button.btn.btn-default.btn-sm.disabled
             %span.glyphicon.glyphicon-remove
           pour abandonner vos modifications.
+        .alert.alert-danger
+          %strong Attention ! Il ne s'agit que d'un pré-planning de desiderata, qui sera validé après arbitrage entre les différentes demandes lors de la réunion du choix de gardes.
       .modal-footer
         %button.btn.btn-default{type: "button", "data-dismiss" => "modal"} Fermer
 
