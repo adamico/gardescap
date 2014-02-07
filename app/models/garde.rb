@@ -14,4 +14,8 @@ class Garde < ActiveRecord::Base
   validates :date, :time, presence: true
 
   belongs_to :period, touch: true
+
+  def candidates_count
+    candidates.count
+  end
 end
