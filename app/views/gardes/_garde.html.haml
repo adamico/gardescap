@@ -5,9 +5,9 @@
 
   &nbsp;
 
-  = link_to garde.candidate_list, "#", class: "tags",
+  = link_to garde.candidate_list.map(&:upcase).join(", "), "#", class: "tags",
     data: {placeholder: "saisir votre nom ici", type: "select2", url: garde_path(garde),
-    value: garde.candidate_list, name: "candidate_list"}
+    value: garde.candidate_list.map(&:upcase).join(", "), name: "candidate_list"}
 
 - else
   = link_to content_tag(:span, nil, class: "glyphicon glyphicon-plus"), gardes_path(garde: {date: date, time: time, period_id: period_id}), method: :post, remote: true, class: "btn btn-default btn-xs", title: "Nouvelle garde - #{time} - #{l(date.to_date)}"if can?(:create, :gardes)
