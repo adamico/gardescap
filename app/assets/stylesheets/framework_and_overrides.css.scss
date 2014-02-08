@@ -1,6 +1,14 @@
 // import the CSS framework
 @import "bootstrap";
 
+thead th {
+  text-align: center;
+}
+
+th {
+  text-align: right;
+}
+
 // make all images responsive by default
 img {
   @extend .img-responsive;
