@@ -9,7 +9,7 @@ gem 'jquery-turbolinks'
 gem 'turbolinks'
 gem 'jbuilder', '~> 1.2'
 gem "responders"
-gem 'bootstrap-sass', '~> 3.0.3.0'
+gem 'bootstrap-sass', '~> 3.1.0'
 gem 'devise'
 gem "cancan", github: "ncri/cancan", branch: "2.0"
 gem 'haml-rails'
