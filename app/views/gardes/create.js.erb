@@ -1,7 +1,5 @@
 <% date, time, period_id = params[:garde][:date], params[:garde][:time], params[:garde][:period_id] %>
 $td = $("#<%= date %>-<%= time %>");
-console.log("period_id = <%= params[:garde][:period_id] %>");
 td_content = "<%= j(render "gardes/garde", date: date, time: time, garde: @garde) %>";
-console.log(td_content);
 $td.html(td_content);
 $td.find("a:nth-child(2)").attachEditable();
