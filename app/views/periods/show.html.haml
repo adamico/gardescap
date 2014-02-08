@@ -48,7 +48,7 @@
               %th= l(date, format: :superlong)
               - Garde::TIMES.each_key do |time|
                 - garde = @period.gardes.select {|g| g.date == date.to_date && g.time == time}.first
-                %td{id: [date, time].join("-"), class: cell_css(garde)}
+                %td{id: [date, time].join("-"), "data-candidates" => (garde.candidates_count if garde) }
                   = render 'gardes/garde', time: time, date: date, garde: garde, period_id: @period.id
 
 - else
