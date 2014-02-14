@@ -22,7 +22,6 @@ class GardesController < ApplicationController
 
   def create
     @garde = Garde.create(garde_params)
-    @garde.create_activity :create, owner: current_user
     respond_to do |format|
       format.js
     end
@@ -38,7 +37,6 @@ class GardesController < ApplicationController
   def destroy
     @garde = Garde.find(params[:id])
     @garde.destroy
-    @garde.create_activity :destroy, owner: current_user
     respond_to do |format|
       format.js
     end
