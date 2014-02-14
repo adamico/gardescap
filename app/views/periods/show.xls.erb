@@ -186,7 +186,9 @@
           <Row>
             <Cell ss:StyleID="<%= (day.saturday? or day.sunday?) ? 's9991' : "s9995" %>"><Data ss:Type="String"><%= I18n.l day, format: "%A" %></Data></Cell>
             <Cell ss:StyleID="<%= (day.saturday? or day.sunday?) ? 's9992' : "s9996" %>"><Data ss:Type="String"><%= I18n.l(day) %></Data></Cell>
-            <% Garde::TIMES.each do |time| %>
+            <Cell ss:StyleID="<%= (day.saturday? or day.sunday?) ? 's9993' : "s9994" %>"><Data ss:Type="String"></Data></Cell>
+            <Cell ss:StyleID="<%= (day.saturday? or day.sunday?) ? 's9993' : "s9994" %>"><Data ss:Type="String"></Data></Cell>
+            <% Garde::TIMES.each_key do |time| %>
               <% garde = @period.gardes.select {|g| g.date == day.to_date && g.time == time}.first %>
               <Cell ss:StyleID="<%= (day.saturday? or day.sunday?) ? 's9993' : "s9994" %>"><Data ss:Type="String"><%= garde.try(:candidate_list) %></Data></Cell>
             <% end %>
