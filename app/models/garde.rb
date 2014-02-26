@@ -15,6 +15,10 @@ class Garde < ActiveRecord::Base
 
   belongs_to :period, touch: true
 
+  def upcase_candidate_list
+    candidate_list.map(&:upcase).join(", ") if candidate_list
+  end
+
   def candidates_count
     candidates.count
   end
