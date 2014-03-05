@@ -19,3 +19,4 @@
 //= require editable/rails
 //= require periods
 //= require gardes
+//= require home

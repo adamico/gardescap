@@ -15,6 +15,18 @@ class Garde < ActiveRecord::Base
 
   belongs_to :period, touch: true
 
+  def self.with_time(time)
+    where(time: time)
+  end
+
+  def self.am
+    where(time: ["jj", "js"]).select {|g| g.date.saturday?}
+  end
+
+  def self.jj
+    where(time: ["jj", "js"]).select {|g| !g.date.saturday?}
+  end
+
   def upcase_candidate_list
     candidate_list.map(&:upcase).join(", ") if candidate_list
   end

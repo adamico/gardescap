@@ -1,3 +1,11 @@
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://coffeescript.org/
+$ = jQuery
+
+$ ->
+  $(".equivalent-garde").calculateEqGarde()
+
+$.fn.calculateEqGarde = ->
+  @each ->
+    values = 
+      parseInt($(td).text()) / parseInt($(td).data("factor")) for td in $(@).parent().find("td")
+    total = values.reduce (x, y) -> x + y
+    $(@).text(total)
