@@ -32,10 +32,8 @@ group :development do
   gem "pry"
   gem "pry-rails"
   gem 'better_errors'
-  gem 'binding_of_caller', :platforms=>[:mri_19, :mri_20, :rbx]
-  gem 'guard-bundler'
-  gem 'guard-rails'
-  gem 'guard-rspec'
+  gem 'binding_of_caller', :platforms=>[:mri_19, :mri_20, :mri_21, :rbx]
+  gem 'guard-rspec', "~> 4.2.8", require: false
   gem 'html2haml'
   gem 'hub', :require=>nil
   gem 'quiet_assets'
@@ -47,7 +45,7 @@ group :development do
 end
 group :development, :test do
   gem 'factory_girl_rails'
-  gem 'rspec-rails'
+  gem 'rspec-rails', '~> 3.0.0.beta'
   gem "poltergeist", github: "jonleighton/poltergeist"
   gem "dotenv-rails"
 end
