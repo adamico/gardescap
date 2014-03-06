@@ -5,7 +5,7 @@ class HomeController < ApplicationController
   end
 
   def stats
-    @medecins = ActsAsTaggableOn::Tag.order(:name).all.map(&:name)
+    @medecins = ActsAsTaggableOn::Tag.order("lower(name)").all.map(&:name)
   end
 
   private
