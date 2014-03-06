@@ -1,5 +1,5 @@
 class Period < ActiveRecord::Base
-  default_scope order(:ends_at)
+  default_scope {order(:ends_at)}
 
   has_many :gardes
 

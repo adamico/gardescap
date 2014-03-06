@@ -4,6 +4,8 @@ class Garde < ActiveRecord::Base
   acts_as_ordered_taggable
   acts_as_ordered_taggable_on :candidates
 
+  by_star_field :date
+
   TIMES = {
     "jj" => ["la", "Journée/AM Junior"],
     "js" => ["la", "Journée/AM Senior"],
