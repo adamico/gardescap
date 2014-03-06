@@ -1,0 +1,18 @@
+%table.table.stats
+  %thead
+    %tr
+      %th Nom
+      %th Après-midi
+      %th Journées
+      %th Nuits Courtes
+      %th Nuits Longues
+      %th Equivalents de garde
+  %tbody
+    - medecins.each do |medecin|
+      %tr
+        %th= medecin.upcase
+        %td{"data-factor" => "2"}= gardes.tagged_with(medecin).am.count
+        %td{"data-factor" => "1"}= gardes.tagged_with(medecin).jj.count
+        %td{"data-factor" => "2"}= gardes.with_time("nc").tagged_with(medecin).count
+        %td{"data-factor" => "1"}= gardes.with_time("nl").tagged_with(medecin).count
+        %th.equivalent-garde

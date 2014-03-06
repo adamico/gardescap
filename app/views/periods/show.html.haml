@@ -50,6 +50,14 @@
                 - garde = @period.gardes.select {|g| g.date == date.to_date && g.time == time}.first
                 %td{id: [date, time].join("-"), "data-candidates" => (garde.candidates_count if garde) }
                   = render 'gardes/garde', time: time, date: date, garde: garde, period_id: @period.id
+        .panel-group{id: "accordion-#{mois}"}
+          .panel.panel-default
+            .panel-heading
+              %h4.panel-title= link_to "Statistiques - #{I18n.t("date.month_names")[mois]}", "#collapse-one-#{mois}", data: {toggle: "collapse", parent: "accordion-#{mois}"}
+            %div.panel-collapse.collapse{id: "collapse-one-#{mois}"}
+              .panel-body
+                = render "home/stats_table", gardes: @period.gardes.by_month(mois), medecins: @medecins
+  = link_to "Voir les statistiques sur toute la période #{@period.name}", stats_path, class: "btn btn-info", target: "_blank"
 
 - else
   .row
