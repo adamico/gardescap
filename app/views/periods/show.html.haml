@@ -47,8 +47,8 @@
             %tr
               %th= l(date, format: :superlong)
               - Garde::TIMES.each_key do |time|
-                - garde = @period.gardes.select {|g| g.date == date.to_date && g.time == time}.first
-                %td{id: [date, time].join("-"), "data-candidates" => (garde.candidates_count if garde) }
+                - garde = @period.gardes.find_by(date: date, time: time)
+                %td{id: [date, time].join("-"), "data-candidates" => (garde.candidates_count if garde)}
                   = render 'gardes/garde', time: time, date: date, garde: garde, period_id: @period.id
         .panel-group{id: "accordion-#{mois}"}
           .panel.panel-default
@@ -56,7 +56,7 @@
               %h4.panel-title= link_to "Statistiques - #{I18n.t("date.month_names")[mois]}", "#collapse-one-#{mois}", data: {toggle: "collapse", parent: "accordion-#{mois}"}
             %div.panel-collapse.collapse{id: "collapse-one-#{mois}"}
               .panel-body
-                = render "home/stats_table", gardes: @period.gardes.by_month(mois), medecins: @medecins
+                = render "home/stats_table", gardes: @period.gardes.by_month(mois)
   = link_to "Voir les statistiques sur toute la période #{@period.name}", stats_path, class: "btn btn-info", target: "_blank"
 
 - else
@@ -64,7 +64,9 @@
     .col-lg-offset-4.col-lg-4
       %p Aucune garde saisie sur cette periode
 
-.modal.fade#modeEmploi{data: {show: Rails.env.test? ? "false" : "true", keyboard: "true"}, tabindex: "-1", role: "dialog", aria: {labelledby: "modeEmploiModal", hidden: "true"}}
+.modal.fade#modeEmploi{data: {show: Rails.env.test? ? "false" : "true", keyboard: "true"},
+                      tabindex: "-1", role: "dialog",
+                      aria: {labelledby: "modeEmploiModal", hidden: "true"}}
   .modal-dialog
     .modal-content
       .modal-header

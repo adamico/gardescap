@@ -7,7 +7,7 @@ class HomeController < ApplicationController
 
   def stats
     authorize! :stats, :home
-    @medecins = ActsAsTaggableOn::Tag.order("lower(name)").all.map(&:name)
+    @medecins = User.all
   end
 
   private

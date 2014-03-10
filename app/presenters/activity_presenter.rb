@@ -9,11 +9,15 @@ class ActivityPresenter < SimpleDelegator
   def render_activity_update
     result = [date, owner]
     if garde
-      result += [candidate_changes, link_to_garde, nouvelle_liste]
+      result += [action, link_to_garde]
     else
       result << "a modifié une garde qui a été enlevé du planning."
     end
     result.join(" ").html_safe
+  end
+
+  def action
+    activity.key == "assignment.destroy" ? "s'est enlevé de" : "a choisi"
   end
 
   def date
@@ -21,57 +25,14 @@ class ActivityPresenter < SimpleDelegator
   end
 
   def owner
-    link_to activity.owner, "#"
+    content_tag(:strong, activity.owner)
   end
 
   def garde
-    @garde ||= activity.trackable
+    @garde ||= Garde.find(activity.parameters[:garde_id])
   end
 
   def link_to_garde
     link_to garde.time_date, garde_path(garde), class: "btn btn-default"
-  end
-
-  def candidate_changes
-    "#{candidates_message} " + content_tag(:span, candidates_list, class: "label label-default") + candidates_message_preposition
-  end
-
-  def candidates_message
-    candidates_removed? ? "a enlevé" : "a rajouté"
-  end
-
-  def candidates_message_preposition
-    candidates_removed? ? " de" : " à"
-  end
-
-  def candidates_list
-    if candidates_removed?
-      (old_candidates - new_candidates).map(&:upcase).join(", ")
-    else
-      (new_candidates - old_candidates).map(&:upcase).join(", ")
-    end
-  end
-
-  def candidates_removed?
-    new_list = new_candidates.length
-    old_list = old_candidates.length
-    new_list < old_list
-  end
-
-  def new_candidates
-    activity.parameters[:new_candidates].map(&:upcase)
-  end
-
-  def old_candidates
-    if activity.parameters[:old_candidates].present?
-      activity.parameters[:old_candidates].flatten.map(&:upcase)
-    else
-      []
-    end
-  end
-
-  def nouvelle_liste
-    liste = new_candidates.empty? ? "aucun candidat" : new_candidates.map {|c| content_tag(:span, c.upcase, class: "label label-default")}.join("&nbsp;")
-    "- Nouvelle liste : #{liste}"
   end
 end

@@ -11,8 +11,8 @@
     - medecins.each do |medecin|
       %tr
         %th= medecin.upcase
-        %td{"data-factor" => "2"}= gardes.tagged_with(medecin).am.count
-        %td{"data-factor" => "1"}= gardes.tagged_with(medecin).jj.count
-        %td{"data-factor" => "2"}= gardes.with_time("nc").tagged_with(medecin).count
-        %td{"data-factor" => "1"}= gardes.with_time("nl").tagged_with(medecin).count
+        %td{"data-factor" => "2"}= gardes.with_candidate(medecin).am.count
+        %td{"data-factor" => "1"}= gardes.with_candidate(medecin).jj.count
+        %td{"data-factor" => "2"}= gardes.with_time("nc").with_candidate(medecin).count
+        %td{"data-factor" => "1"}= gardes.with_time("nl").with_candidate(medecin).count
         %th.equivalent-garde

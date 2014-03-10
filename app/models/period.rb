@@ -28,7 +28,7 @@ class Period < ActiveRecord::Base
     end
   end
 
-  def create_gardes
+  def create_gardes!
     gardes = []
     days.each do |day|
       Garde::TIMES.each_key do |time|

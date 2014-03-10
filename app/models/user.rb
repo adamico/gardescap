@@ -4,6 +4,9 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  has_many :gardes, through: :assignments
+  has_many :assignments, dependent: :destroy
+
   def to_s
     name
   end

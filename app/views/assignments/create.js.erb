@@ -1,0 +1,6 @@
+<% garde = @assignment.garde %>
+$td = $("#<%= garde.date %>-<%= garde.time %>");
+<% candidates_count = garde.candidates_count %>
+$td.data("candidates", <%= candidates_count %>);
+$td.getCellClass()
+$td.find(".candidates").html("<%= j render "assignments/assignment", garde: garde %>")

@@ -1,9 +1,4 @@
 class Garde < ActiveRecord::Base
-  include PublicActivity::Common
-
-  acts_as_ordered_taggable
-  acts_as_ordered_taggable_on :candidates
-
   by_star_field :date
 
   TIMES = {
@@ -13,9 +8,25 @@ class Garde < ActiveRecord::Base
     "nl"  => "Nuit Longue"
   }
 
+  MAX_CANDIDATES = 3
+
   validates :date, :time, presence: true
 
   belongs_to :period, touch: true
+  has_many :users, through: :assignments
+  has_many :assignments, dependent: :destroy
+
+  def candidate_list
+    users.map(&:name)
+  end
+
+  def candidates_count
+    users.count
+  end
+
+  def self.with_candidate(name)
+    joins(:users).where(users: {name: name})
+  end
 
   def self.with_time(time)
     where(time: time)

@@ -17,6 +17,11 @@ class ApplicationController < ActionController::Base
   end
 
   helper_method :last_period
+  helper_method :medecins
+
+  def medecins
+    @medecins ||= User.order("lower(name)").to_a.map(&:name)
+  end
 
   def last_period
     @last_period ||= Period.active.last
