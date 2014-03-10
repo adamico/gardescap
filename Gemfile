@@ -29,6 +29,7 @@ gem "by_star", github: "radar/by_star"
 gem "kaminari"
 
 group :development do
+  gem 'bullet'
   gem "spring"
   gem "spring-commands-rspec"
   gem "pry"
@@ -52,7 +53,7 @@ group :development, :test do
   gem "dotenv-rails"
 end
 group :test do
-  gem 'capybara'
+  gem 'capybara', github: "jnicklas/capybara"
   gem 'database_cleaner', '1.0.1'
   gem 'email_spec'
   gem 'capybara-select2'
