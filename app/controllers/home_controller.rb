@@ -7,7 +7,7 @@ class HomeController < ApplicationController
 
   def stats
     authorize! :stats, :home
-    @medecins = User.all
+    @medecins = User.order("lower(name)").all.map(&:name)
   end
 
   private
