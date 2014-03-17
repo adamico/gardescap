@@ -48,6 +48,9 @@ class Period < ActiveRecord::Base
     event :close do
       transition open: :closed
     end
+    event :reopen do
+      transition closed: :open
+    end
   end
 
   private
