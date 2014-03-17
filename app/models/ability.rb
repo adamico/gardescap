@@ -4,12 +4,14 @@ class Ability
   def initialize(user)
     if user
       can :read, :all
-      can :access, :home
-      can :update, :gardes
-      can :tags, :gardes
+      can :index, :home
+      can :stats, :home
+      can :update, Garde
+      cannot :update, Garde, period: {state: "closed"}
+      can :tags, Garde
       if user.admin?
-        can :access, :all
-        cannot :destroy, :users, id: user.id
+        can :manage, :all
+        cannot :destroy, User, id: user.id
       end
     end
     # Define abilities for the passed in (current) user. For example:
