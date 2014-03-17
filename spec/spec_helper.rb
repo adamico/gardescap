@@ -55,7 +55,7 @@ RSpec.configure do |config|
   config.filter_run focus: true
   config.run_all_when_everything_filtered = true
   config.filter_run_excluding :slow unless ENV["SLOW_SPECS"]
-  config.raise_errors_for_deprecations!
+  #config.raise_errors_for_deprecations!
 
   config.before(:suite) do
     DatabaseCleaner.strategy = :truncation
