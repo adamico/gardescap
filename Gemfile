@@ -11,7 +11,7 @@ gem 'jbuilder', '~> 1.2'
 gem "responders"
 gem 'bootstrap-sass', '~> 3.1.0'
 gem 'devise'
-gem "cancan", github: "ncri/cancan", branch: "2.0"
+gem "cancancan", github: "cancancommunity/cancancan"
 gem 'haml-rails'
 gem 'simple_form', github: 'zlx/simple_form_bootstrap3'
 gem 'rails_12factor', group: :production

@@ -6,6 +6,12 @@ GIT
       thor (~> 0.14)
 
 GIT
+  remote: git://github.com/cancancommunity/cancancan.git
+  revision: fefa60b40a6b8b2c5b892b168c5ea54cdbe439f5
+  specs:
+    cancancan (1.7.0)
+
+GIT
   remote: git://github.com/jonleighton/poltergeist.git
   revision: 330fe1d01eb9c7e25ba4154bfc7dc84aac58ed29
   specs:
@@ -23,13 +29,6 @@ GIT
       actionpack (>= 3, < 5)
       activerecord (>= 3, < 5)
       activesupport (>= 3, < 5)
-
-GIT
-  remote: git://github.com/ncri/cancan.git
-  revision: aa370c3ea1907df534708105b20f243c388377d5
-  branch: 2.0
-  specs:
-    cancan (2.0.0.alpha)
 
 GIT
   remote: git://github.com/radar/by_star.git
@@ -330,7 +329,7 @@ DEPENDENCIES
   bootstrap-sass (~> 3.1.0)
   by_star!
   byebug
-  cancan!
+  cancancan!
   capybara
   capybara-select2
   coffee-rails (~> 4.0.0)
