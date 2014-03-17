@@ -19,7 +19,7 @@ class ActivityPresenter < SimpleDelegator
   end
 
   def garde
-    activity.trackable
+    @garde ||= activity.trackable
   end
 
   def garde_date
