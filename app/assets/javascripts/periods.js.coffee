@@ -5,4 +5,4 @@
 $ = jQuery
 
 $ ->
-  $("#modeEmploi").modal("show")
+  $("#modeEmploi").modal("show") if $("#modeEmploi").data("show") is "true"

@@ -64,7 +64,7 @@
     .col-lg-offset-4.col-lg-4
       %p Aucune garde saisie sur cette periode
 
-.modal.fade#modeEmploi{"data-keyboard" => "true", tabindex: "-1", role: "dialog", aria: {labelledby: "modeEmploiModal", hidden: "true"}}
+.modal.fade#modeEmploi{data: {show: Rails.env.test? ? "false" : "true", keyboard: "true"}, tabindex: "-1", role: "dialog", aria: {labelledby: "modeEmploiModal", hidden: "true"}}
   .modal-dialog
     .modal-content
       .modal-header
@@ -90,4 +90,3 @@
           %strong Attention ! Il ne s'agit que d'un pré-planning de desiderata, qui sera validé après arbitrage entre les différentes demandes lors de la réunion du choix de gardes.
       .modal-footer
         %button.btn.btn-default{type: "button", "data-dismiss" => "modal"} Fermer
-
