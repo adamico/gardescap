@@ -2,9 +2,11 @@ class HomeController < ApplicationController
   before_action :set_period
 
   def index
+    authorize! :index, :home
   end
 
   def stats
+    authorize! :stats, :home
     @medecins = ActsAsTaggableOn::Tag.order("lower(name)").all.map(&:name)
   end
 

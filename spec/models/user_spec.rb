@@ -22,6 +22,8 @@ describe User do
     end
     context "when user is admin" do
       let(:user) {build_stubbed(:admin)}
+      let(:period) { build_stubbed(:period, state: "closed") }
+      let(:garde)  { build_stubbed(:garde, period: period)}
       it {is_expected.not_to be_able_to(:destroy, user)}
     end
   end

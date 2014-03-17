@@ -1,13 +1,13 @@
 - if garde
   = link_to content_tag(:span, nil, class: "glyphicon glyphicon-remove"), garde_path(garde), method: :delete, remote: true,
     title: "Détruire garde - #{time} - #{l(date.to_date)}",
-    data: {confirm: "Etes-vous sûr ?"}, class: "btn btn-danger btn-xs" if can?(:destroy, :gardes)
+    data: {confirm: "Etes-vous sûr ?"}, class: "btn btn-danger btn-xs" if can?(:destroy, garde)
 
   &nbsp;
 
-  = link_to garde.candidate_list.map(&:upcase).join(", "), "#", class: "tags",
-    data: {placeholder: "saisir votre nom ici", type: "select2", url: garde_path(garde),
+  = link_to_if can?(:update, garde), garde.candidate_list.map(&:upcase).join(", "), "#", class: "tags",
+    title: "Choisir garde - #{time} - #{l(date.to_date)}", data: {placeholder: "saisir votre nom ici", type: "select2", url: garde_path(garde),
     value: garde.candidate_list.map(&:upcase).join(", "), name: "candidate_list"}
 
 - else
-  = link_to content_tag(:span, nil, class: "glyphicon glyphicon-plus"), gardes_path(garde: {date: date, time: time, period_id: period_id}), method: :post, remote: true, class: "btn btn-default btn-xs", title: "Nouvelle garde - #{time} - #{l(date.to_date)}"if can?(:create, :gardes)
+  = link_to content_tag(:span, nil, class: "glyphicon glyphicon-plus"), gardes_path(garde: {date: date, time: time, period_id: period_id}), method: :post, remote: true, class: "btn btn-default btn-xs", title: "Nouvelle garde - #{time} - #{l(date.to_date)}" if can?(:create, Garde)
