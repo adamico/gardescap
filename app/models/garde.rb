@@ -20,6 +20,10 @@ class Garde < ActiveRecord::Base
     [Garde::TIMES[time].join(" "), "du #{I18n.l(date)}"].join(" ")
   end
 
+  def open_period?
+    period.open?
+  end
+
   def candidate_list
     users.map(&:name)
   end
