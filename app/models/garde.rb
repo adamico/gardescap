@@ -16,6 +16,10 @@ class Garde < ActiveRecord::Base
   has_many :users, through: :assignments
   has_many :assignments, dependent: :destroy
 
+  def time_and_date
+    [Garde::TIMES[time].join(" "), "du #{I18n.l(date)}"].join(" ")
+  end
+
   def candidate_list
     users.map(&:name)
   end
