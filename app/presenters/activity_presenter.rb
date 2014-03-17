@@ -70,6 +70,6 @@ class ActivityPresenter < SimpleDelegator
 
   def nouvelle_liste
     liste = garde.candidate_list.empty? ? "aucun candidat" : garde.candidate_list.map {|c| content_tag(:span, c.upcase, class: "label label-default")}.join("&nbsp;")
-    "- Nouvelle liste : #{liste}"
+    "- Nouvelle liste : #{liste}" if garde
   end
 end
