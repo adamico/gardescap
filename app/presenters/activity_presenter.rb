@@ -7,7 +7,7 @@ class ActivityPresenter < SimpleDelegator
   end
 
   def render_activity_update
-    [date, owner, candidate_changes, garde_time, garde_date, nouvelle_liste].join(" ").html_safe
+    [date, owner, candidate_changes, garde_time, garde_date, nouvelle_liste].join(" ").html_safe if garde
   end
 
   def date
@@ -23,11 +23,11 @@ class ActivityPresenter < SimpleDelegator
   end
 
   def garde_date
-    "du #{l garde.date}" if garde
+    "du #{l garde.date}"
   end
 
   def garde_time
-    Garde::TIMES[garde.time].join(" ") if garde
+    Garde::TIMES[garde.time].join(" ")
   end
 
   def candidate_changes
@@ -70,6 +70,6 @@ class ActivityPresenter < SimpleDelegator
 
   def nouvelle_liste
     liste = garde.candidate_list.empty? ? "aucun candidat" : garde.candidate_list.map {|c| content_tag(:span, c.upcase, class: "label label-default")}.join("&nbsp;")
-    "- Nouvelle liste : #{liste}" if garde
+    "- Nouvelle liste : #{liste}"
   end
 end
