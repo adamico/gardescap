@@ -23,7 +23,7 @@ class ActivityPresenter < SimpleDelegator
   end
 
   def garde_date
-    "du #{l garde.date}"
+    "du #{l garde.date}" if garde
   end
 
   def garde_time
