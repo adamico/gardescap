@@ -7,11 +7,11 @@ class ActivityPresenter < SimpleDelegator
   end
 
   def render_activity_update
-    result = [date, owner]
+    result = ["le", date, owner, action]
     if garde
-      result += [action, link_to_garde]
+      result << link_to_garde
     else
-      result << "a modifié une garde qui a été enlevé du planning."
+      result << "une garde qui a été enlevée du choix depuis."
     end
     result.join(" ").html_safe
   end
@@ -28,11 +28,16 @@ class ActivityPresenter < SimpleDelegator
     content_tag(:strong, activity.owner)
   end
 
-  def garde
-    @garde ||= Garde.find(activity.parameters[:garde_id])
-  end
-
   def link_to_garde
     link_to garde.time_date, garde_path(garde), class: "btn btn-default"
+  end
+
+  def garde
+    begin
+      @garde ||= Garde.find(activity.parameters[:garde_id]).time_and_date
+    rescue ActiveRecord::RecordNotFound => e
+      Rails.logger.debug e
+      return nil
+    end
   end
 end
