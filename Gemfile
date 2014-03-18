@@ -26,6 +26,7 @@ gem 'state_machine'
 gem 'public_activity'
 gem "activerecord-import", ">= 0.2.0"
 gem "by_star", github: "radar/by_star"
+gem "kaminari"
 
 group :development do
   gem "spring"

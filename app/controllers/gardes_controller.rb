@@ -28,9 +28,10 @@ class GardesController < ApplicationController
   end
 
   def update
-    @garde.activity_params = {old_candidates: @garde.candidate_list_was.split(", "), new_candidates: garde_params[:candidate_list]}
+    old_candidates = @garde.candidate_list_was.split(", ").flatten
+    @garde.activity_params = {old_candidates: old_candidates, new_candidates: garde_params[:candidate_list]}
     @garde.update(garde_params)
-    @garde.create_activity :update, owner: current_user
+    @garde.create_activity :update, owner: current_user unless old_candidates == garde_params[:candidate_list]
     respond_with @garde
   end
 

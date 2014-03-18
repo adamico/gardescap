@@ -7,10 +7,10 @@ class Garde < ActiveRecord::Base
   by_star_field :date
 
   TIMES = {
-    "jj" => ["la", "Journée/AM Junior"],
-    "js" => ["la", "Journée/AM Senior"],
-    "nc"  => ["la ", "Nuit Courte"],
-    "nl"  => ["la ", "Nuit Longue"]
+    "jj" => "Journée/AM Junior",
+    "js" => "Journée/AM Senior",
+    "nc"  => "Nuit Courte",
+    "nl"  => "Nuit Longue"
   }
 
   validates :date, :time, presence: true
@@ -29,11 +29,30 @@ class Garde < ActiveRecord::Base
     where(time: ["jj", "js"]).select {|g| !g.date.saturday?}
   end
 
+  def to_s
+    time_date(false)
+  end
+
+  def time_date(with_article= true)
+    the_time = with_article ? ["la", garde_time].join(" ") : garde_time
+    [the_time, garde_date].join(" ")
+  end
+
   def upcase_candidate_list
     candidate_list.map(&:upcase).join(", ") if candidate_list
   end
 
   def candidates_count
     candidates.count
+  end
+
+  private
+
+  def garde_date
+    "du #{I18n.l date}"
+  end
+
+  def garde_time
+    Garde::TIMES[time]
   end
 end

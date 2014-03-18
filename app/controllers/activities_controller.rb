@@ -1,7 +1,8 @@
 class ActivitiesController < ApplicationController
   load_and_authorize_resource class: PublicActivity::Activity
   def index
-    @activities = PublicActivity::Activity.order("created_at desc")
+    @activities = PublicActivity::Activity.order("created_at desc").page(params[:page])
+    @activities_by_date = @activities.group_by {|activity| activity.created_at.beginning_of_day}
   end
 
   def empty

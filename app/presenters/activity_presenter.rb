@@ -7,11 +7,17 @@ class ActivityPresenter < SimpleDelegator
   end
 
   def render_activity_update
-    [date, owner, candidate_changes, garde_time, garde_date, nouvelle_liste].join(" ").html_safe if garde
+    result = [date, owner]
+    if garde
+      result += [candidate_changes, link_to_garde, nouvelle_liste]
+    else
+      result << "a modifié une garde qui a été enlevé du planning."
+    end
+    result.join(" ").html_safe
   end
 
   def date
-    content_tag(:small, l(activity.created_at, format: :long)) + " -"
+    content_tag(:small, l(activity.created_at, format: :hhhmm)) + " -"
   end
 
   def owner
@@ -22,12 +28,8 @@ class ActivityPresenter < SimpleDelegator
     @garde ||= activity.trackable
   end
 
-  def garde_date
-    "du #{l garde.date}"
-  end
-
-  def garde_time
-    Garde::TIMES[garde.time].join(" ")
+  def link_to_garde
+    link_to garde.time_date, garde_path(garde), class: "btn btn-default"
   end
 
   def candidate_changes
@@ -44,9 +46,9 @@ class ActivityPresenter < SimpleDelegator
 
   def candidates_list
     if candidates_removed?
-      [old_candidates - new_candidates].flatten.map(&:upcase).join(", ")
+      (old_candidates - new_candidates).map(&:upcase).join(", ")
     else
-      [new_candidates - old_candidates].flatten.map(&:upcase).join(", ")
+      (new_candidates - old_candidates).map(&:upcase).join(", ")
     end
   end
 
@@ -57,19 +59,19 @@ class ActivityPresenter < SimpleDelegator
   end
 
   def new_candidates
-    activity.parameters[:new_candidates]
+    activity.parameters[:new_candidates].map(&:upcase)
   end
 
   def old_candidates
     if activity.parameters[:old_candidates].present?
-      activity.parameters[:old_candidates]
+      activity.parameters[:old_candidates].flatten.map(&:upcase)
     else
       []
     end
   end
 
   def nouvelle_liste
-    liste = garde.candidate_list.empty? ? "aucun candidat" : garde.candidate_list.map {|c| content_tag(:span, c.upcase, class: "label label-default")}.join("&nbsp;")
+    liste = new_candidates.empty? ? "aucun candidat" : new_candidates.map {|c| content_tag(:span, c.upcase, class: "label label-default")}.join("&nbsp;")
     "- Nouvelle liste : #{liste}"
   end
 end
