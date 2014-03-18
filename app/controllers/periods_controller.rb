@@ -6,7 +6,7 @@ class PeriodsController < ApplicationController
 
   def show
     @period = params[:id].present? ? Period.find(params[:id]) : Period.last
-    @medecins = ActsAsTaggableOn::Tag.order("lower(name)").all.map(&:name)
+    @medecins = ActsAsTaggableOn::Tag.order("lower(name)").to_a.map(&:name)
     @gardes = @period.gardes
     @mois_gardes = @gardes.group_by {|garde| garde.date.month}
     @mois = @period.mois
