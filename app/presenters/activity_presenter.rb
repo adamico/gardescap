@@ -36,7 +36,7 @@ class ActivityPresenter < SimpleDelegator
 
   def garde
     begin
-      @garde ||= Garde.find(activity.parameters[:garde_id]).time_and_date
+      @garde ||= Garde.find(activity.parameters[:garde_id])
     rescue ActiveRecord::RecordNotFound => e
       Rails.logger.debug e
       return nil
