@@ -12,7 +12,7 @@ module AssignmentsHelper
   end
 
   def link_to_remove_candidate(assignment)
-    link_to_if(period_is_open_and_can_destroy(assignment), (assignment.user_name + "&nbsp;" + content_tag(:span, nil, class: "glyphicon glyphicon-remove")).html_safe, assignment_path(assignment), title: "Enlever #{assignment.user_name} de #{assignment.garde.time_and_date}", method: :delete, remote: true, class: "btn btn-sm btn-default") 
+    link_to_if(period_is_open_and_can_destroy(assignment), (assignment.user_name + "&nbsp;" + content_tag(:span, nil, class: "glyphicon glyphicon-remove")).html_safe, assignment_path(assignment), title: "Enlever #{assignment.user_name} de #{assignment.garde}", method: :delete, remote: true, class: "btn btn-sm btn-default")
   end
 
   def period_is_open_and_can_destroy(assignment)

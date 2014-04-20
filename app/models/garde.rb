@@ -16,16 +16,16 @@ class Garde < ActiveRecord::Base
   has_many :users, through: :assignments
   has_many :assignments, dependent: :destroy
 
-  def time_and_date
-    [Garde::TIMES[time].join(" "), "du #{I18n.l(date)}"].join(" ")
-  end
-
   def open_period?
     period.open?
   end
 
   def candidate_list
     users.map(&:name)
+  end
+
+  def upcase_candidate_list
+    candidate_list.map(&:upcase).join(", ") if candidate_list
   end
 
   def candidates_count
@@ -49,20 +49,12 @@ class Garde < ActiveRecord::Base
   end
 
   def to_s
-    time_date(false)
+    time_date
   end
 
   def time_date(with_article= true)
     the_time = with_article ? ["la", garde_time].join(" ") : garde_time
     [the_time, garde_date].join(" ")
-  end
-
-  def upcase_candidate_list
-    candidate_list.map(&:upcase).join(", ") if candidate_list
-  end
-
-  def candidates_count
-    candidates.count
   end
 
   private
