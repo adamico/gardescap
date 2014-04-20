@@ -10,4 +10,8 @@ class User < ActiveRecord::Base
   def to_s
     name
   end
+
+  def has_already_chosen?(garde)
+    assignments.where(garde: garde, user: self).any?
+  end
 end

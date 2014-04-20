@@ -12,7 +12,10 @@ module AssignmentsHelper
   end
 
   def link_to_remove_candidate(assignment)
-    link_to_if(period_is_open_and_can_destroy(assignment), (assignment.user_name + "&nbsp;" + content_tag(:span, nil, class: "glyphicon glyphicon-remove")).html_safe, assignment_path(assignment), title: "Enlever #{assignment.user_name} de #{assignment.garde}", method: :delete, remote: true, class: "btn btn-sm btn-default")
+    link_to_if period_is_open_and_can_destroy(assignment),
+      (assignment.user_name + "&nbsp;" + content_tag(:span, nil, class: "glyphicon glyphicon-remove")).html_safe, assignment_path(assignment),
+      title: "Enlever #{assignment.user_name} de #{assignment.garde}",
+      method: :delete, remote: true, class: "btn btn-sm btn-default"
   end
 
   def period_is_open_and_can_destroy(assignment)
@@ -20,12 +23,15 @@ module AssignmentsHelper
   end
 
   def period_is_open_for(garde)
-    garde.open_period?
+    garde.belongs_to_open_period?
   end
 
   def button_to_choose_garde(garde)
-    if garde.candidates_count < Garde::MAX_CANDIDATES and period_is_open_for(garde)
-      link_to content_tag(:span, nil, class: "glyphicon glyphicon-ok"), assignments_path(assignment: {garde_id: garde.id, user_id: current_user.id}), method: :post, remote: true, class: "btn btn-default btn-xs create-assignment", title: "Choisir la garde - #{garde.time} - #{l(garde.date)}" unless garde.assignments.where(garde_id: garde.id, user_id: current_user.id).any?
+    if garde.can_accept_more_candidates? and period_is_open_for(garde) and !current_user.has_already_chosen?(garde)
+      link_to content_tag(:span, nil, class: "glyphicon glyphicon-ok"),
+        assignments_path(assignment: {garde_id: garde.id, user_id: current_user.id}),
+        title: "Choisir la garde - #{garde.time} - #{l(garde.date)}",
+        method: :post, remote: true, class: "btn btn-default btn-xs create-assignment"
     end
   end
 end

@@ -16,8 +16,12 @@ class Garde < ActiveRecord::Base
   has_many :users, through: :assignments
   has_many :assignments, dependent: :destroy
 
-  def open_period?
+  def belongs_to_open_period?
     period.open?
+  end
+
+  def can_accept_more_candidates?
+    candidates_count < MAX_CANDIDATES
   end
 
   def candidate_list
