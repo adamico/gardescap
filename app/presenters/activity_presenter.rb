@@ -16,9 +16,7 @@ class ActivityPresenter < SimpleDelegator
     result.join(" ").html_safe
   end
 
-  def action
-    activity.key == "assignment.destroy" ? "s'est enlevé de" : "a choisi"
-  end
+  private
 
   def date
     content_tag(:small, l(activity.created_at, format: :hhhmm)) + " -"
@@ -26,6 +24,10 @@ class ActivityPresenter < SimpleDelegator
 
   def owner
     content_tag(:strong, activity.owner)
+  end
+
+  def action
+    activity.key == "assignment.destroy" ? "s'est enlevé de" : "a choisi"
   end
 
   def link_to_garde
