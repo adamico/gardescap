@@ -1,12 +1,11 @@
 // import the CSS framework
 @import "bootstrap";
 
-.stats
-  thead th, tbody td {
+.stats thead th, .stats tbody td {
     text-align: right;
   }
 
-thead th {
+thead th, tbody td {
   text-align: center;
 }
 
