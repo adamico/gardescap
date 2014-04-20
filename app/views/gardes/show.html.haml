@@ -1,19 +1,15 @@
-%h2.text-center Historique des modifications de #{@garde.time_date}
+%h2.text-center Historique des modifications de #{@garde}
 
-- if @garde.activities.any?
+- if @activities && @activities.any?
   %table.table
     %thead
       %tr
         %th Horodateur
         %th Utilisateur
-        %th Anciens candidats
-        %th Nouveaux candidats
-    - @garde.activities.order(:created_at).each do |activity|
+    - @activities.order(:created_at).each do |assignment|
       %tr
-        %td= l activity.created_at, format: :long
-        %td= activity.owner
-        %td= activity.parameters[:old_candidates].flatten.map(&:upcase).join(", ")
-        %td= activity.parameters[:new_candidates].map(&:upcase).join(", ")
+        %td= l assignment.created_at, format: :long
+        %td= assignment.owner
 - else
   Aucune activité pour cette garde
 

@@ -4,6 +4,7 @@ class GardesController < ApplicationController
   load_and_authorize_resource
 
   def show
+    @activities = PublicActivity::Activity.where(trackable_id: [@garde.assignment_ids]) if @garde.assignments.any?
   end
 
   def create
