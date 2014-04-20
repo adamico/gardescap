@@ -11,18 +11,18 @@ describe User do
     let(:own_assignment) { build_stubbed(:assignment, user: user, garde: garde)}
     let(:other_assignment) { build_stubbed(:assignment, user: other_user, garde: garde)}
 
-    it {is_expected.to be_able_to(:read, Garde.new)}
-    it {is_expected.to be_able_to(:index, :home)}
-    it {is_expected.to be_able_to(:stats, :home)}
-    it {is_expected.to be_able_to(:create, Assignment.new)}
-    it {is_expected.to be_able_to(:destroy, own_assignment)}
-    it {is_expected.not_to be_able_to(:destroy, other_assignment)}
+    it {expect(subject).to be_able_to(:read, Garde.new)}
+    it {expect(subject).to be_able_to(:index, :home)}
+    it {expect(subject).to be_able_to(:stats, :home)}
+    it {expect(subject).to be_able_to(:create, Assignment.new)}
+    it {expect(subject).to be_able_to(:destroy, own_assignment)}
+    it {expect(subject).not_to be_able_to(:destroy, other_assignment)}
 
     context "when user is admin" do
       let(:user) {build_stubbed(:admin)}
       let(:period) { build_stubbed(:period, state: "closed") }
       let(:garde)  { build_stubbed(:garde, period: period)}
-      it {is_expected.not_to be_able_to(:destroy, user)}
+      it {expect(subject).not_to be_able_to(:destroy, user)}
     end
   end
 end
