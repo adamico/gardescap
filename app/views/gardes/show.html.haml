@@ -5,7 +5,7 @@
     %thead
       %tr
         %th Horodateur
-        %th Utilisateur
+        %th Médecin rajouté
     - @activities.order(:created_at).each do |assignment|
       %tr
         %td= l assignment.created_at, format: :long
