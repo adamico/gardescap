@@ -75,3 +75,4 @@ pickle-email-*.html
 **.swp
 .envrc
 latest.dump
+config/secrets.yml
