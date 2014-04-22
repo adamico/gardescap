@@ -122,7 +122,7 @@ GEM
       execjs
     coffee-script-source (1.7.0)
     columnize (0.8.9)
-    database_cleaner (1.0.1)
+    database_cleaner (1.2.0)
     debug_inspector (0.0.2)
     debugger-linecache (1.2.0)
     devise (3.2.4)
@@ -340,7 +340,7 @@ DEPENDENCIES
   capybara!
   capybara-select2
   coffee-rails (~> 4.0.0)
-  database_cleaner (= 1.0.1)
+  database_cleaner (= 1.2.0)
   devise
   dotenv-rails
   email_spec

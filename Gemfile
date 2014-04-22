@@ -54,7 +54,7 @@ group :development, :test do
 end
 group :test do
   gem 'capybara', github: 'jnicklas/capybara'
-  gem 'database_cleaner', '1.0.1'
+  gem 'database_cleaner', '1.2.0'
   gem 'email_spec'
   gem 'capybara-select2'
 end
