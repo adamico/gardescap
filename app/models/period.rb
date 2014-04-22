@@ -3,6 +3,8 @@ class Period < ActiveRecord::Base
 
   has_many :gardes
 
+  enum state: [:open, :closed]
+
   def self.active
     Period.where(state: :closed)
   end
@@ -42,15 +44,6 @@ class Period < ActiveRecord::Base
       end
     end
     Garde.import gardes
-  end
-
-  state_machine initial: :open do
-    event :close do
-      transition open: :closed
-    end
-    event :reopen do
-      transition closed: :open
-    end
   end
 
   private
