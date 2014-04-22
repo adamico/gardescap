@@ -36,6 +36,6 @@ class PeriodsController < ApplicationController
   private
 
   def period_params
-    params.require(:period).permit(:starts_at, :ends_at, :state_event)
+    params.require(:period).permit(:starts_at, :ends_at, :state)
   end
 end
