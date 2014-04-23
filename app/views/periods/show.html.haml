@@ -50,7 +50,7 @@
               - Garde::TIMES.each_key do |time|
                 - garde = @period.gardes.find_by(date: date, time: time)
                 %td{id: [date, time].join("-"), class: "garde#{garde && garde.holiday? ? ' garde-holiday' : '' }"}
-                  = render 'gardes/garde', time: time, date: date, garde: garde, period_id: @period.id
+                  = render 'gardes/garde', time: time, date: date, garde: garde, period: @period
         .panel-group{id: "accordion-#{mois}"}
           .panel.panel-default
             .panel-heading
