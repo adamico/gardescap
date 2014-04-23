@@ -1,0 +1,4 @@
+<% date, time = @garde.date, @garde.time %>
+$td = $("#<%= date %>-<%= time %>");
+$td.find(".holiday-toggle").html("<%= j(render "gardes/holiday_toggle", garde: @garde) %>")
+$td.toggleClass("garde-holiday");
