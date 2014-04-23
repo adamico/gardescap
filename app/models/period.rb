@@ -14,7 +14,7 @@ class Period < ActiveRecord::Base
   end
 
   def mois
-    months_in_period = ((ends_at - starts_at).to_f / 30).round
+    months_in_period = ((ends_at - starts_at).to_f / 30.0).ceil
     result = []
     (0..(months_in_period-1)).each do |i|
       result << (starts_at + i.months).month
