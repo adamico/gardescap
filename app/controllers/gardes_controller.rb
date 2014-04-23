@@ -1,5 +1,5 @@
 class GardesController < ApplicationController
-  respond_to :js, only: [:create, :destroy]
+  respond_to :js, only: [:create, :update, :destroy]
   respond_to :html
   load_and_authorize_resource
 
@@ -11,12 +11,16 @@ class GardesController < ApplicationController
     @garde = Garde.create(garde_params)
     respond_to do |format|
       format.js
+      format.html { redirect_to choix_path }
     end
   end
 
   def update
     @garde.update(garde_params)
-    respond_with @garde
+    respond_to do |format|
+      format.js
+      format.html { redirect_to choix_path }
+    end
   end
 
   def destroy
@@ -24,12 +28,13 @@ class GardesController < ApplicationController
     @garde.destroy
     respond_to do |format|
       format.js
+      format.html { redirect_to choix_path }
     end
   end
 
   private
 
   def garde_params
-    params.require(:garde).permit(:date, :time, :period_id)
+    params.require(:garde).permit(:date, :time, :holiday, :period_id)
   end
 end

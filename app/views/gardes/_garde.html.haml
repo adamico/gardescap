@@ -8,4 +8,7 @@
   %span.candidates= render 'assignments/assignment', garde: garde
 
 - else
-  = link_to content_tag(:span, nil, class: "glyphicon glyphicon-plus"), gardes_path(garde: {date: date, time: time, period_id: period_id}), method: :post, remote: true, class: "btn btn-default btn-xs create-garde", title: "Nouvelle garde - #{time} - #{l(date.to_date)}" if can?(:create, Garde)
+  = link_to content_tag(:span, nil, class: "glyphicon glyphicon-plus"),
+    gardes_path(garde: {date: date, time: time, period_id: period_id, holiday: true}),
+    method: :post, remote: true, class: "btn btn-default btn-xs create-garde",
+    title: "Nouvelle garde - #{time} - #{l(date.to_date)}" if can?(:create, Garde)

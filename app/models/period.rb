@@ -38,6 +38,7 @@ class Period < ActiveRecord::Base
           next unless day.saturday? or day.sunday?
         end
         garde = Garde.find_or_initialize_by(date: day, time: time)
+        garde.holiday = true if day.sunday? or day.saturday?
         garde.period = self
         garde.save!
         gardes << garde if garde.new_record?

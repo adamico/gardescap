@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140422104910) do
+ActiveRecord::Schema.define(version: 20140422131308) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,6 +50,7 @@ ActiveRecord::Schema.define(version: 20140422104910) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "period_id"
+    t.boolean  "holiday",    default: false
   end
 
   add_index "gardes", ["period_id"], name: "index_gardes_on_period_id", using: :btree
