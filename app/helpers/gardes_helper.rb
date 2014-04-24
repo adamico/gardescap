@@ -1,5 +1,5 @@
 module GardesHelper
-  def link_to_create_or_destroy_garde(garde, date, time, period)
+  def link_to_toggle_state_for(garde, date, time, period)
     ActionLink.new(garde, date, time, period, self).to_html
   end
 
@@ -32,7 +32,7 @@ class ActionLink
   end
 
   def to_html
-    link_to icon, path, method: link_method, remote: true, class: "pull-left btn btn-xs btn-#{link_class}",
+    link_to icon, path, method: link_method, remote: true, class: "pull-left btn btn-xs btn-default",
       data: dom_data, title: "#{title_prefix} garde - #{time_date}" if context.can?(action, Garde)
   end
 
@@ -48,10 +48,6 @@ class ActionLink
 
   def link_method
     @garde ? :delete : :post
-  end
-
-  def link_class
-    @garde ? 'danger' : 'default'
   end
 
   def dom_data
@@ -71,6 +67,6 @@ class ActionLink
   end
 
   def icon_class
-    @garde ? 'trash' : 'plus'
+    @garde ? 'star-empty' : 'star'
   end
 end

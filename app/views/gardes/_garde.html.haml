@@ -1,8 +1,5 @@
-= link_to_create_or_destroy_garde(garde, date, time, period)
+.btn-group.pull-left
+  = link_to_toggle_state_for(garde, date, time, period)
+  = link_to_toggle_holiday_garde(garde)
 
-- if garde
-  %span.holiday-toggle.pull-left= render 'gardes/holiday_toggle', garde: garde
-
-  &nbsp;
-
-  %span.candidates= render 'assignments/assignment', garde: garde
+%span.candidates= render 'assignments/assignment', garde: garde
