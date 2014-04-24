@@ -4,6 +4,8 @@ FactoryGirl.define do
   factory :garde do
     date '2013-12-06'
     time 'MyString'
-    state 'MyString'
+    factory :garde_active do
+      after(:create) { |garde| garde.active! }
+    end
   end
 end
