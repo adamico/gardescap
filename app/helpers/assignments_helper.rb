@@ -15,7 +15,7 @@ module AssignmentsHelper
     link_to_if period_is_open_and_can_destroy(assignment),
       (assignment.user_name + "&nbsp;" + content_tag(:span, nil, class: "glyphicon glyphicon-remove")).html_safe, assignment_path(assignment),
       title: "Enlever #{assignment.user_name} de #{assignment.garde}",
-      method: :delete, remote: true, class: "btn btn-sm btn-default"
+      method: :delete, remote: true, class: "btn btn-xs btn-danger"
   end
 
   def period_is_open_and_can_destroy(assignment)
@@ -31,7 +31,7 @@ module AssignmentsHelper
       link_to content_tag(:span, nil, class: "glyphicon glyphicon-ok"),
         assignments_path(assignment: {garde_id: garde.id, user_id: current_user.id}),
         title: "Choisir la garde - #{garde.time} - #{l(garde.date)}",
-        method: :post, remote: true, class: "btn btn-default btn-xs create-assignment"
+        method: :post, remote: true, class: "btn btn-success btn-xs create-assignment"
     end
   end
 end

@@ -1,0 +1,29 @@
+.modal.fade#modeEmploi{data: {show: Rails.env.test? ? "false" : "true", keyboard: "true"},
+                      tabindex: "-1", role: "dialog",
+                      aria: {labelledby: "modeEmploiModal", hidden: "true"}}
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close{type: "button", "data-dismiss" => "modal", "aria-hidden" => "true"} &times;
+
+        %h4.modal-title#modeEmploiModal Mode d'emploi
+
+      .modal-body
+        %p Choisissez le mois en appuyant sur les noms des mois en haut de la table.
+
+        %p
+          Pour vous positionner sur une plage de garde, clickez sur le bouton
+          %button.btn.btn-success.btn-xs.disabled
+            %span.glyphicon.glyphicon-ok
+          \.
+
+        .alert.alert-warning
+          %strong
+            Chaque plage peut contenir au maximum #{Garde::MAX_CANDIDATES} noms. Vous pouvez effacer si besoin votre nom en appuyant sur le bouton
+            %button.btn.btn-danger.btn-xs.disabled
+              NOM
+              %span.glyphicon.glyphicon-remove
+        .alert.alert-danger
+          %strong Attention ! Il ne s'agit que d'un pré-planning de desiderata, qui sera validé après arbitrage entre les différentes demandes lors de la réunion du choix de gardes.
+      .modal-footer
+        %button.btn.btn-default{type: "button", "data-dismiss" => "modal"} Fermer

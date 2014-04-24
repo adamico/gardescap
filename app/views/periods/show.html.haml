@@ -65,31 +65,4 @@
     .col-lg-offset-4.col-lg-4
       %p Aucune garde saisie sur cette periode
 
-.modal.fade#modeEmploi{data: {show: Rails.env.test? ? "false" : "true", keyboard: "true"},
-                      tabindex: "-1", role: "dialog",
-                      aria: {labelledby: "modeEmploiModal", hidden: "true"}}
-  .modal-dialog
-    .modal-content
-      .modal-header
-        %button.close{type: "button", "data-dismiss" => "modal", "aria-hidden" => "true"} &times;
-        %h4.modal-title#modeEmploiModal Mode d'emploi
-      .modal-body
-        %p Choisissez le mois en clickant sur les noms des mois en haut de la table.
-        %p Pour vous positionner sur une plage de garde, clickez sur 'Personne' si celle-ci est encore vide ou sur la liste des noms déjà présent.
-        .alert.alert-warning
-          %strong
-            Chaque plage peut contenir au maximum 5 noms. Vous pouvez effacer si besoin votre nom. Les autres personnes notées peuvent également être éffacées si besoin, bien sûr après avoir obtenu leur accord (
-            %u> de toute manière, toute action est tracée et visible en clickant sur le lien "Activité" en haut de la page
-            ).
-        %p
-          Dans tous les cas, une fois votre nom rentré dans le champ appuyez sur le bouton
-          %button.btn.btn-primary.btn-sm.disabled
-            %span.glyphicon.glyphicon-ok
-          pour valider la modification ou sur le bouton
-          %button.btn.btn-default.btn-sm.disabled
-            %span.glyphicon.glyphicon-remove
-          pour abandonner vos modifications.
-        .alert.alert-danger
-          %strong Attention ! Il ne s'agit que d'un pré-planning de desiderata, qui sera validé après arbitrage entre les différentes demandes lors de la réunion du choix de gardes.
-      .modal-footer
-        %button.btn.btn-default{type: "button", "data-dismiss" => "modal"} Fermer
+= render 'mode_emploi'
