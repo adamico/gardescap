@@ -1,13 +1,13 @@
 $ = jQuery
 
 $ ->
-  $(".editable").editable()
-  $(".alert-message").alert()
+  $('.alert-message').alert()
+  $('.equivalent-garde').calculateEqGarde()
+  $('#modeEmploi').modal('show') if $('#modeEmploi').data('show') is 'true'
 
-  $.fn.select2.defaults.allowClear = true
-  $.fn.select2.defaults.formatNoMatches = -> "Aucun résultat"
-  $.fn.select2.defaults.formatInputTooShort = (input, min) -> "Saisir au moins #{min - input.length} caractères"
-  $.fn.select2.defaults.formatSelectionTooBig = (maxSize) -> "Pas plus de #{maxSize} personnes par plage"
-  $.fn.select2.defaults.formatSearching = -> "Recherche en cours..."
-  $.fn.select2.defaults.width = "resolve"
-  $.fn.editable.defaults.emptytext = "Personne"
+$.fn.calculateEqGarde = ->
+  @each ->
+    values =
+      parseInt($(td).text()) / parseInt($(td).data('factor')) for td in $(@).parent().find('td')
+    total = values.reduce (x, y) -> x + y
+    $(@).text(total)

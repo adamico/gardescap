@@ -13,10 +13,4 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap
-//= require select2
 //= require common
-//= require editable/bootstrap-editable
-//= require editable/rails
-//= require periods
-//= require gardes
-//= require home
