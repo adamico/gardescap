@@ -12,7 +12,7 @@ module GardesHelper
       button_tag(type: :submit, class: "btn btn-xs btn-default", id: "toggle-holiday-#{garde.time}-#{garde.date}", titre: "Rendre #{titre} garde - #{garde.time} - #{l(garde.date)}") do
         content_tag(:span, nil, class: "glyphicon glyphicon-#{icon_class}")
       end
-    end
+    end if can?(:update, Garde)
   end
 
 end
