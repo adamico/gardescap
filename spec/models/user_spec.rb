@@ -1,8 +1,8 @@
-require "spec_helper"
-require "cancan/matchers"
+require 'spec_helper'
+require 'cancan/matchers'
 
 describe User do
-  describe "abilities" do
+  describe 'abilities' do
     subject(:ability) { Ability.new(user) }
     let(:user) { build_stubbed(:user) }
     let(:other_user) { build_stubbed(:user) }
@@ -18,9 +18,9 @@ describe User do
     it {expect(subject).to be_able_to(:destroy, own_assignment)}
     it {expect(subject).not_to be_able_to(:destroy, other_assignment)}
 
-    context "when user is admin" do
+    context 'when user is admin' do
       let(:user) {build_stubbed(:admin)}
-      let(:period) { build_stubbed(:period, state: "closed") }
+      let(:period) { build_stubbed(:period, state: 'closed') }
       let(:garde)  { build_stubbed(:garde, period: period)}
       it {expect(subject).not_to be_able_to(:destroy, user)}
     end

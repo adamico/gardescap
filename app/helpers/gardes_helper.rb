@@ -5,11 +5,11 @@ module GardesHelper
 
   def link_to_toggle_holiday_garde(garde)
     holiday = garde.holiday? ? false : true
-    icon_class = garde.holiday? ? "heart-empty" : "heart"
-    titre = garde.holiday? ? "normale" : "fériée"
-    form_for garde, role: "form", remote: true do |f|
+    icon_class = garde.holiday? ? 'heart-empty' : 'heart'
+    titre = garde.holiday? ? 'normale' : 'fériée'
+    form_for garde, role: 'form', remote: true do |f|
       f.hidden_field(:holiday, value: holiday) +
-      button_tag(type: :submit, class: "btn btn-xs btn-default", id: "toggle-holiday-#{garde.time}-#{garde.date}", titre: "Rendre #{titre} garde - #{garde.time} - #{l(garde.date)}") do
+      button_tag(type: :submit, class: 'btn btn-xs btn-default', id: "toggle-holiday-#{garde.time}-#{garde.date}", titre: "Rendre #{titre} garde - #{garde.time} - #{l(garde.date)}") do
         content_tag(:span, nil, class: "glyphicon glyphicon-#{icon_class}")
       end
     end if can?(:update, Garde)
@@ -51,15 +51,15 @@ class ActionLink
   end
 
   def link_class
-    @garde ? "danger" : "default"
+    @garde ? 'danger' : 'default'
   end
 
   def dom_data
-    @garde ? { confirm: "Etes-vous sûr ?" } : nil
+    @garde ? { confirm: 'Etes-vous sûr ?' } : nil
   end
 
   def title_prefix
-    @garde ? "Détruire" : "Nouvelle"
+    @garde ? 'Détruire' : 'Nouvelle'
   end
 
   def time_date
@@ -71,6 +71,6 @@ class ActionLink
   end
 
   def icon_class
-    @garde ? "trash" : "plus"
+    @garde ? 'trash' : 'plus'
   end
 end

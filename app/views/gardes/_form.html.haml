@@ -1,9 +1,9 @@
-= form_for garde, html: {class: "form-inline", role: "form"} do |f|
+= form_for garde, html: {class: 'form-inline', role: 'form'} do |f|
   .form-group
-    = f.label :candidate_list, class: "sr-only"
+    = f.label :candidate_list, class: 'sr-only'
     = f.hidden_field :candidate_list,
-      class: "form-control",
+      class: 'form-control',
       value: f.object.candidate_list,
       data: { load: f.object.candidate_list.map {|candidate| {id: candidate, text: candidate}}.to_json }
 
-  = f.submit "Enregistrer", class: "btn btn-default"
+  = f.submit 'Enregistrer', class: 'btn btn-default'

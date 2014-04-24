@@ -1,4 +1,4 @@
-require "application_responder"
+require 'application_responder'
 
 class ApplicationController < ActionController::Base
   self.responder = ApplicationResponder
@@ -20,7 +20,7 @@ class ApplicationController < ActionController::Base
   helper_method :medecins
 
   def medecins
-    @medecins ||= User.order("lower(name)").to_a.map(&:name)
+    @medecins ||= User.order('lower(name)').to_a.map(&:name)
   end
 
   def last_period

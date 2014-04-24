@@ -1,5 +1,5 @@
 <% date, time = @garde.date, @garde.time %>
-$td = $("#<%= date %>-<%= time %>");
-$td.addClass("garde-holiday");
-td_content = "<%= j(render "gardes/garde", date: date, time: time, garde: @garde, period: @garde.period )%>";
+$td = $('#<%= date %>-<%= time %>');
+$td.addClass('garde-holiday');
+td_content = '<%= j(render 'gardes/garde', date: date, time: time, garde: @garde, period: @garde.period )%>';
 $td.html(td_content);

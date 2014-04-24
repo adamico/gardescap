@@ -1,10 +1,10 @@
-.modal.fade#modeEmploi{data: {show: Rails.env.test? ? "false" : "true", keyboard: "true"},
-                      tabindex: "-1", role: "dialog",
-                      aria: {labelledby: "modeEmploiModal", hidden: "true"}}
+.modal.fade#modeEmploi{data: {show: Rails.env.test? ? 'false' : 'true', keyboard: 'true'},
+                      tabindex: '-1', role: 'dialog',
+                      aria: {labelledby: 'modeEmploiModal', hidden: 'true'}}
   .modal-dialog
     .modal-content
       .modal-header
-        %button.close{type: "button", "data-dismiss" => "modal", "aria-hidden" => "true"} &times;
+        %button.close{type: 'button', 'data-dismiss' => 'modal', 'aria-hidden' => 'true'} &times;
 
         %h4.modal-title#modeEmploiModal Mode d'emploi
 
@@ -26,4 +26,4 @@
         .alert.alert-danger
           %strong Attention ! Il ne s'agit que d'un pré-planning de desiderata, qui sera validé après arbitrage entre les différentes demandes lors de la réunion du choix de gardes.
       .modal-footer
-        %button.btn.btn-default{type: "button", "data-dismiss" => "modal"} Fermer
+        %button.btn.btn-default{type: 'button', 'data-dismiss' => 'modal'} Fermer

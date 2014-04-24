@@ -1,10 +1,10 @@
-%h2.text-center= "Choix des gardes " + @period.name
+%h2.text-center= 'Choix des gardes ' + @period.name
 
 .row
   .col-lg-offset-3.col-lg-6
     .btn-group
-      = link_to "Ouvrir le mode d'emploi", "#", class: "btn btn-primary btn-lg", data: {toggle: "modal", target: "#modeEmploi"}
-      = link_to "Imprimer ce tableau", choix_path(format: "xls"), class: "btn btn-info btn-lg"
+      = link_to "Ouvrir le mode d'emploi", '#', class: 'btn btn-primary btn-lg', data: {toggle: 'modal', target: '#modeEmploi'}
+      = link_to 'Imprimer ce tableau', choix_path(format: 'xls'), class: 'btn btn-info btn-lg'
 
 %br
 
@@ -14,28 +14,28 @@
       %h3 Administration
     .col-lg-8
       .btn-group
-        = link_to "Initialiser/Reinitialiser les gardes sur la période", populate_period_path(id: @period.id), class: "btn btn-success btn-lg"
-        = link_to "Modifier la période", edit_period_path(@period), class: "btn btn-lg btn-default"
-      = form_for @period, html: {class: "form-inline state_machine", role: "form"} do |f|
-        = f.label :state, "ETAT"
-        = f.collection_select :state, Period.states, :first, :first, class: "form-control"
-        = f.submit "Changer", class: "btn btn-info btn-lg"
+        = link_to 'Initialiser/Reinitialiser les gardes sur la période', populate_period_path(id: @period.id), class: 'btn btn-success btn-lg'
+        = link_to 'Modifier la période', edit_period_path(@period), class: 'btn btn-lg btn-default'
+      = form_for @period, html: {class: 'form-inline state_machine', role: 'form'} do |f|
+        = f.label :state, 'ETAT'
+        = f.collection_select :state, Period.states, :first, :first, class: 'form-control'
+        = f.submit 'Changer', class: 'btn btn-info btn-lg'
   %br
 
 - if @gardes.any?
   %ul.nav.nav-tabs
     - @mois.each_with_index do |mois, index|
-      %li{class: index == 0 ? "active" : nil}
-        %a{href: "##{mois}", data: {toggle: "tab"}} #{I18n.t("date.month_names")[mois]}
+      %li{class: index == 0 ? 'active' : nil}
+        %a{href: "##{mois}", data: {toggle: 'tab'}} #{I18n.t('date.month_names')[mois]}
 
   .tab-content
     - @mois.each_with_index do |mois, index|
       - gardes = @mois_gardes[mois]
-      .tab-pane{id: mois, class: index == 0 ? "active" : nil}
+      .tab-pane{id: mois, class: index == 0 ? 'active' : nil}
         %table.table.table-bordered.table-condensed.gardes
           %thead
             %tr
-              %th{rowspan: 2} #{I18n.t("date.month_names")[mois]}
+              %th{rowspan: 2} #{I18n.t('date.month_names')[mois]}
               %th{colspan: 2} 13h30-18h30 samedi / 8h30-18h30 dim.-fériés
               %th Nuit courte
               %th Nuit longue
@@ -49,16 +49,16 @@
               %th= l(date, format: :superlong)
               - Garde::TIMES.each_key do |time|
                 - garde = @period.gardes.find_by(date: date, time: time)
-                %td{id: [date, time].join("-"), class: "garde#{garde && garde.holiday? ? ' garde-holiday' : '' }"}
+                %td{id: [date, time].join('-'), class: "garde#{garde && garde.holiday? ? ' garde-holiday' : '' }"}
                   = render 'gardes/garde', time: time, date: date, garde: garde, period: @period
         .panel-group{id: "accordion-#{mois}"}
           .panel.panel-default
             .panel-heading
-              %h4.panel-title= link_to "Statistiques - #{I18n.t("date.month_names")[mois]}", "#collapse-one-#{mois}", data: {toggle: "collapse", parent: "accordion-#{mois}"}
+              %h4.panel-title= link_to "Statistiques - #{I18n.t("date.month_names")[mois]}", "#collapse-one-#{mois}", data: {toggle: 'collapse', parent: "accordion-#{mois}"}
             %div.panel-collapse.collapse{id: "collapse-one-#{mois}"}
               .panel-body
-                = render "home/stats_table", gardes: @period.gardes.by_month(mois)
-  = link_to "Voir les statistiques sur toute la période #{@period.name}", stats_path, class: "btn btn-info", target: "_blank"
+                = render 'home/stats_table', gardes: @period.gardes.by_month(mois)
+  = link_to "Voir les statistiques sur toute la période #{@period.name}", stats_path, class: 'btn btn-info', target: '_blank'
 
 - else
   .row

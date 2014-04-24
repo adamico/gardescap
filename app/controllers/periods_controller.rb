@@ -30,7 +30,7 @@ class PeriodsController < ApplicationController
   def populate
     @period = Period.find(params[:id])
     @period.create_gardes!
-    redirect_to choix_path, notice: "Le tableau a été prerempli avec les gardes, veuillez rajouter manuellement les jours fériés."
+    redirect_to choix_path, notice: 'Le tableau a été prerempli avec les gardes, veuillez rajouter manuellement les jours fériés.'
   end
 
   private

@@ -1,9 +1,9 @@
-= form_for period, html: {class: "form-inline", role: "form"} do |f|
+= form_for period, html: {class: 'form-inline', role: 'form'} do |f|
   %h4 Choisir la période concernée par le choix
   .form-group
-    = f.label :starts_at, "Debut de la période", class: "sr-only"
-    = f.date_field :starts_at, class: "form-control", placeholder: "Du"
+    = f.label :starts_at, 'Debut de la période', class: 'sr-only'
+    = f.date_field :starts_at, class: 'form-control', placeholder: 'Du'
   .form-group
-    = f.label :ends_at, "Fin de la période", class: "sr-only"
-    = f.date_field :ends_at, class: "form-control", placeholder: "Au"
-  = f.submit "Enregistrer", class: "btn btn-success"
+    = f.label :ends_at, 'Fin de la période', class: 'sr-only'
+    = f.date_field :ends_at, class: 'form-control', placeholder: 'Au'
+  = f.submit 'Enregistrer', class: 'btn btn-success'

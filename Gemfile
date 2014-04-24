@@ -10,7 +10,7 @@ gem 'jbuilder', '~> 2.0'
 gem 'responders'
 gem 'bootstrap-sass', '~> 3.1.0'
 gem 'devise'
-gem 'cancancan', github: "cancancommunity/cancancan"
+gem 'cancancan', github: 'cancancommunity/cancancan'
 gem 'haml-rails'
 gem 'simple_form', github: 'plataformatec/simple_form'
 gem 'newrelic_rpm'

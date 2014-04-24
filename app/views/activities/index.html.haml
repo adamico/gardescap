@@ -5,11 +5,11 @@
     %h2= l(date.to_date)
 
     - activities.each do |activity|
-      = div_for activity, class: "activity" do
+      = div_for activity, class: 'activity' do
         = render_activity activity
 
   %hr
 
 .row
-  .col-sm-6= paginate @activities, theme: "twitter-bootstrap"
-  .col-sm-6= link_to "Vider le registre", empty_activity_path, method: :delete, class: "btn btn-danger btn-lg", data: {confirm: "Etes-vous sûr ?"} if current_user.admin?
+  .col-sm-6= paginate @activities, theme: 'twitter-bootstrap'
+  .col-sm-6= link_to 'Vider le registre', empty_activity_path, method: :delete, class: 'btn btn-danger btn-lg', data: {confirm: 'Etes-vous sûr ?'} if current_user.admin?

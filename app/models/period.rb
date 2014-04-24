@@ -10,7 +10,7 @@ class Period < ActiveRecord::Base
   end
 
   def name
-    I18n.l(starts_at).to_s + " - " + I18n.l(ends_at).to_s
+    I18n.l(starts_at).to_s + ' - ' + I18n.l(ends_at).to_s
   end
 
   def mois
@@ -34,7 +34,7 @@ class Period < ActiveRecord::Base
     gardes = []
     days.each do |day|
       Garde::TIMES.each_key do |time|
-        if time == "jj" or time == "js"
+        if time == 'jj' or time == 'js'
           next unless day.saturday? or day.sunday?
         end
         garde = Garde.find_or_initialize_by(date: day, time: time)

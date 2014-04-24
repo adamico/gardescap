@@ -1,17 +1,17 @@
 fr:
   simple_form:
-    "yes": 'Oui'
-    "no": 'Non'
+    'yes': 'Oui'
+    'no': 'Non'
     required:
       text: 'obligatoire'
       mark: '*'
       # You can uncomment the line below if you need to overwrite the whole required html.
       # When using html, text and mark won't be used.
-      # html: '<abbr title="required">*</abbr>'
+      # html: '<abbr title='required'>*</abbr>'
     error_notification:
-      default_message: "Des erreurs ont été trouvées, vérifiez :"
+      default_message: 'Des erreurs ont été trouvées, vérifiez :'
     labels:
-      name: "Nom"
+      name: 'Nom'
     # Labels and hints examples
     # labels:
     #   password: 'Password'
