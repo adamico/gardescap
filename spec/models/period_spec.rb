@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Period do
   describe '#mois' do
     it 'should return an array of month numbers for each month in period' do
-      Period.new(starts_at: '2014-05-01', ends_at: '2014-08-31').mois.should == (5..8).to_a
+      Period.new(starts_at: '2014-05-01', ends_at: '2014-08-31').mois.should == (5..9).to_a
     end
   end
 
