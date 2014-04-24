@@ -27,7 +27,7 @@ module AssignmentsHelper
   end
 
   def button_to_choose_garde(garde)
-    if garde.can_accept_more_candidates? and period_is_open_for(garde) and !current_user.has_already_chosen?(garde)
+    if garde.active? and garde.can_accept_more_candidates? and period_is_open_for(garde) and !current_user.has_already_chosen?(garde)
       link_to content_tag(:span, nil, class: 'glyphicon glyphicon-ok'),
         assignments_path(assignment: {garde_id: garde.id, user_id: current_user.id}),
         title: "Choisir la garde - #{garde.time} - #{l(garde.date)}",

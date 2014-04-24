@@ -6,7 +6,7 @@ class Period < ActiveRecord::Base
   enum state: [:open, :closed]
 
   def self.active
-    Period.where(state: :closed)
+    Period.open
   end
 
   def name
@@ -31,20 +31,16 @@ class Period < ActiveRecord::Base
   end
 
   def create_gardes!
-    gardes = []
     days.each do |day|
       Garde::TIMES.each_key do |time|
-        if time == 'jj' or time == 'js'
-          next unless day.saturday? or day.sunday?
-        end
         garde = Garde.find_or_initialize_by(date: day, time: time)
         garde.holiday = true if day.sunday? or day.saturday?
         garde.period = self
         garde.save!
-        gardes << garde if garde.new_record?
+        # rendre la garde active si la plage actuelle est une journée et le jour actuel est un samedi ou un dimanche ou si la plage actuelle est une nuit (longue/courte)
+        garde.active! if (%w(jj js).include?(time) and (day.saturday? || day.sunday?)) or %w(nc nl).include?(time)
       end
     end
-    Garde.import gardes
   end
 
   private

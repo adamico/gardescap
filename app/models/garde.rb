@@ -16,6 +16,8 @@ class Garde < ActiveRecord::Base
   has_many :users, through: :assignments
   has_many :assignments, dependent: :destroy
 
+  enum state: [:inactive, :active]
+
   def belongs_to_open_period?
     period.open?
   end
