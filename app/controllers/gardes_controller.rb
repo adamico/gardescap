@@ -23,6 +23,12 @@ class GardesController < ApplicationController
     end
   end
 
+  def mass_toggle_holiday
+    gardes_to_update = Garde.where(date: (params[:date]..params[:date]))
+    new_holiday_value = gardes_to_update.any?(&:holiday?) ? false : true
+    gardes_to_update.update_all(holiday: new_holiday_value)
+  end
+
   def destroy
     @garde = Garde.find(params[:id])
     @garde.destroy

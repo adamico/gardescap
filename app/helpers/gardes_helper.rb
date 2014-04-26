@@ -2,6 +2,12 @@ module GardesHelper
   def form_to_toggle_garde_state(garde)
     GardeForm.new(garde, self).to_html if can?(:update, garde)
   end
+
+  def link_to_mass_toggle_holiday(date)
+    link_to(content_tag(:span, nil, class: "glyphicon glyphicon-calendar"),
+            mass_toggle_holiday_gardes_path(date: date), method: :patch, remote: true,
+            class: "btn btn-default btn-xs")
+  end
 end
 
 class GardeForm

@@ -45,10 +45,13 @@
               %th Junior
               %th Senior
           - @period.days(mois).each do |date|
-            %tr
-              %th{class: @period.gardes.where(date: (date..date)).any?(&:holiday?) ? 'garde-holiday' : '' }= l(date, format: :superlong)
+            %tr{id: date}
+              %th{class: @period.gardes.where(date: (date..date)).any?(&:holiday?) ? 'garde-holiday' : '' }
+                .pull-left= link_to_mass_toggle_holiday(date)
+                .pull-right= l(date, format: :superlong)
               - Garde::TIMES.each_key do |time|
                 - garde = @period.gardes.find_by(date: date, time: time)
+                -#TODO: use Garde.where(date: (date..date) and loop through these records
                 %td{id: [date, time].join('-'), class: "garde#{garde && garde.holiday? ? ' garde-holiday' : '' }"}
                   = render 'gardes/garde', time: time, date: date, garde: garde, period: @period
         .panel-group{id: "accordion-#{mois}"}
