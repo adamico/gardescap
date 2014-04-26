@@ -22,50 +22,45 @@
         = f.submit 'Changer', class: 'btn btn-info btn-lg'
   %br
 
-- if @gardes.any?
-  %ul.nav.nav-tabs
-    - @mois.each_with_index do |mois, index|
-      %li{class: index == 0 ? 'active' : nil}
-        %a{href: "##{mois}", data: {toggle: 'tab'}} #{I18n.t('date.month_names')[mois]}
+%ul.nav.nav-tabs
+  - @mois.each_with_index do |mois, index|
+    %li{class: index == 0 ? 'active' : nil}
+      %a{href: "##{mois}", data: {toggle: 'tab'}} #{I18n.t('date.month_names')[mois]}
 
-  .tab-content
-    - @mois.each_with_index do |mois, index|
-      - gardes = @mois_gardes[mois]
-      .tab-pane{id: mois, class: index == 0 ? 'active' : nil}
-        %table.table.table-bordered.table-condensed.gardes
-          %thead
-            %tr
-              %th{rowspan: 2} #{I18n.t('date.month_names')[mois]}
-              %th{colspan: 2} 13h30-18h30 samedi / 8h30-18h30 dim.-fériés
-              %th Nuit courte
-              %th Nuit longue
-            %tr
-              %th Junior
-              %th Senior
-              %th Junior
-              %th Senior
-          - @period.days(mois).each do |date|
-            %tr{id: date}
-              %th{class: @period.gardes.where(date: (date..date)).any?(&:holiday?) ? 'garde-holiday' : '' }
-                .pull-left= link_to_mass_toggle_holiday(date)
-                .pull-right= l(date, format: :superlong)
-              - Garde::TIMES.each_key do |time|
-                - garde = @period.gardes.find_by(date: date, time: time)
-                -#TODO: use Garde.where(date: (date..date) and loop through these records
-                %td{id: [date, time].join('-'), class: "garde#{garde && garde.holiday? ? ' garde-holiday' : '' }"}
-                  = render 'gardes/garde', time: time, date: date, garde: garde, period: @period
-        .panel-group{id: "accordion-#{mois}"}
-          .panel.panel-default
-            .panel-heading
-              %h4.panel-title= link_to "Statistiques - #{I18n.t("date.month_names")[mois]}", "#collapse-one-#{mois}", data: {toggle: 'collapse', parent: "accordion-#{mois}"}
-            %div.panel-collapse.collapse{id: "collapse-one-#{mois}"}
-              .panel-body
-                = render 'home/stats_table', gardes: @period.gardes.by_month(mois)
-  = link_to "Voir les statistiques sur toute la période #{@period.name}", stats_path, class: 'btn btn-info', target: '_blank'
+.tab-content
+  - @mois.each_with_index do |mois, index|
+    - gardes_by_month = @gardes.by_month(mois)
+    .tab-pane{id: mois, class: index == 0 ? 'active' : nil}
+      %table.table.table-bordered.table-condensed.gardes
+        %thead
+          %tr
+            %th{rowspan: 2} #{I18n.t('date.month_names')[mois]}
+            %th{colspan: 2} 13h30-18h30 samedi / 8h30-18h30 dim.-fériés
+            %th Nuit courte
+            %th Nuit longue
+          %tr
+            %th Junior
+            %th Senior
+            %th Junior
+            %th Senior
+        - @period.days(mois).each do |date|
+          %tr{id: date}
+            - gardes_by_day = gardes_by_month.where(date: (date..date))
+            %th{class: gardes_by_day.any?(&:holiday?) ? 'garde-holiday' : '' }
+              .pull-left= link_to_mass_toggle_holiday(date)
+              .pull-right= l(date, format: :superlong)
+            - gardes_by_day.each do |garde|
+              %td{id: [garde.date, garde.time].join('-'), class: "garde#{garde && garde.holiday? ? ' garde-holiday' : '' }"}
+                = render 'gardes/garde', garde: garde
 
-- else
-  .row
-    .col-lg-offset-4.col-lg-4
-      %p Aucune garde saisie sur cette periode
+      .panel-group{id: "accordion-#{mois}"}
+        .panel.panel-default
+          .panel-heading
+            %h4.panel-title= link_to "Statistiques - #{I18n.t("date.month_names")[mois]}", "#collapse-one-#{mois}", data: {toggle: 'collapse', parent: "accordion-#{mois}"}
+          %div.panel-collapse.collapse{id: "collapse-one-#{mois}"}
+            .panel-body
+              = render 'home/stats_table', gardes: gardes_by_month
+
+= link_to "Voir les statistiques sur toute la période #{@period.name}", stats_path, class: 'btn btn-info', target: '_blank'
 
 = render 'mode_emploi'

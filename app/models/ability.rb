@@ -7,7 +7,7 @@ class Ability
       can :index, :home
       can :stats, :home
       can :create, Assignment
-      can :destroy, Assignment, user_id: user.id
+      can :destroy, Assignment, user_id: user.id, garde: {state: "active", period: {state: "open"}}
       if user.admin?
         can :manage, :all
         cannot :destroy, User, id: user.id

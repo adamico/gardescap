@@ -6,7 +6,7 @@ module GardesHelper
   def link_to_mass_toggle_holiday(date)
     link_to(content_tag(:span, nil, class: "glyphicon glyphicon-calendar"),
             mass_toggle_holiday_gardes_path(date: date), method: :patch, remote: true,
-            class: "btn btn-default btn-xs")
+            class: "btn btn-default btn-xs") if can?(:update, Garde)
   end
 end
 
