@@ -1,5 +1,4 @@
 .btn-group.pull-left
-  = link_to_toggle_state_for(garde, date, time, period)
-  = link_to_toggle_holiday_garde(garde)
+  = form_to_toggle_garde_state(garde)
 
 %span.candidates= render 'assignments/assignment', garde: garde

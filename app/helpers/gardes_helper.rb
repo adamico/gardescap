@@ -1,72 +1,48 @@
 module GardesHelper
-  def link_to_toggle_state_for(garde, date, time, period)
-    ActionLink.new(garde, date, time, period, self).to_html
+  def form_to_toggle_garde_state(garde)
+    GardeForm.new(garde, self).to_html if can?(:update, garde)
   end
-
-  def link_to_toggle_holiday_garde(garde)
-    holiday = garde.holiday? ? false : true
-    icon_class = garde.holiday? ? 'heart-empty' : 'heart'
-    titre = garde.holiday? ? 'normale' : 'fériée'
-    form_for garde, role: 'form', remote: true do |f|
-      f.hidden_field(:holiday, value: holiday) +
-      button_tag(type: :submit, class: 'btn btn-xs btn-default', id: "toggle-holiday-#{garde.time}-#{garde.date}", titre: "Rendre #{titre} garde - #{garde.time} - #{l(garde.date)}") do
-        content_tag(:span, nil, class: "glyphicon glyphicon-#{icon_class}")
-      end
-    end if can?(:update, Garde)
-  end
-
 end
 
-class ActionLink
+class GardeForm
   include ActionView::Helpers::TagHelper
   include ActionView::Helpers::UrlHelper
   include GardesHelper
   attr_accessor :context
 
-  def initialize(garde, date, time, period, context)
-    @garde  = garde
-    @date   = date
-    @time   = time
-    @period = period
+  def initialize(garde, context)
+    @garde   = garde
     @context = context
   end
 
   def to_html
-    link_to icon, path, method: link_method, remote: true, class: "pull-left btn btn-xs btn-default",
-      data: dom_data, title: "#{title_prefix} garde - #{time_date}" if context.can?(action, Garde)
+    context.form_for @garde, role: 'form', remote: true do |f|
+      f.hidden_field(:state, value: field_value) +
+      context.button_tag(type: :submit, class: 'btn btn-xs btn-default', id: "toggle-state-#{@garde.time}-#{@garde.date}", titre: titre) do
+        icon
+      end
+    end
   end
 
   private
+
+  def field_value
+    @garde.active? ? 'inactive' : 'active'
+  end
+
+  def titre
+    "Rendre #{field_value} garde - #{time_date}"
+  end
+
+  def time_date
+    "#{@garde.time} - #{context.l(@garde.date.to_date)}"
+  end
 
   def icon
     content_tag(:span, nil, class: "glyphicon glyphicon-#{icon_class}")
   end
 
-  def path
-    @garde ? context.garde_path(@garde) : context.gardes_path(garde: {date: @date, time: @time, period_id: @period.id, holiday: true})
-  end
-
-  def link_method
-    @garde ? :delete : :post
-  end
-
-  def dom_data
-    @garde ? { confirm: 'Etes-vous sûr ?' } : nil
-  end
-
-  def title_prefix
-    @garde ? 'Détruire' : 'Nouvelle'
-  end
-
-  def time_date
-    "#{@time} - #{context.l(@date.to_date)}"
-  end
-
-  def action
-    @garde ? :destroy : :create
-  end
-
   def icon_class
-    @garde ? 'star-empty' : 'star'
+    @garde.active? ? 'star-empty' : 'star'
   end
 end

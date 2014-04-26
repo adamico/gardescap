@@ -35,6 +35,6 @@ class GardesController < ApplicationController
   private
 
   def garde_params
-    params.require(:garde).permit(:date, :time, :holiday, :period_id)
+    params.require(:garde).permit(:holiday, :state)
   end
 end
