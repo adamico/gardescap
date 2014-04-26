@@ -46,7 +46,7 @@
               %th Senior
           - @period.days(mois).each do |date|
             %tr
-              %th= l(date, format: :superlong)
+              %th{class: @period.gardes.where(date: (date..date)).any?(&:holiday?) ? 'garde-holiday' : '' }= l(date, format: :superlong)
               - Garde::TIMES.each_key do |time|
                 - garde = @period.gardes.find_by(date: date, time: time)
                 %td{id: [date, time].join('-'), class: "garde#{garde && garde.holiday? ? ' garde-holiday' : '' }"}
