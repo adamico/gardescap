@@ -25,16 +25,16 @@
 %ul.nav.nav-tabs
   - @mois.each_with_index do |mois, index|
     %li{class: index == 0 ? 'active' : nil}
-      %a{href: "##{mois}", data: {toggle: 'tab'}} #{I18n.t('date.month_names')[mois]}
+      %a{href: "##{mois[:month]}", data: {toggle: 'tab'}} #{I18n.t('date.month_names')[mois[:month]]}
 
 .tab-content
   - @mois.each_with_index do |mois, index|
-    - gardes_by_month = @gardes.by_month(mois)
-    .tab-pane{id: mois, class: index == 0 ? 'active' : nil}
+    - gardes_by_month = @gardes.by_month_year(mois[:month], mois[:year])
+    .tab-pane{id: mois[:month], class: index == 0 ? 'active' : nil}
       %table.table.table-bordered.table-condensed.gardes
         %thead
           %tr
-            %th{rowspan: 2} #{I18n.t('date.month_names')[mois]}
+            %th{rowspan: 2} #{I18n.t('date.month_names')[mois[:month]]}
             %th{colspan: 2} 13h30-18h30 samedi / 8h30-18h30 dim.-fériés
             %th Nuit courte
             %th Nuit longue
@@ -43,7 +43,7 @@
             %th Senior
             %th Junior
             %th Senior
-        - @period.days(mois).each do |date|
+        - @period.days(mois[:month]).each do |date|
           %tr{id: date}
             - gardes_by_day = gardes_by_month.where(date: (date..date))
             %th{class: gardes_by_day.any?(&:holiday?) ? 'garde-holiday' : '' }
@@ -53,11 +53,11 @@
               %td{id: [garde.date, garde.time].join('-'), class: "garde#{garde && garde.holiday? ? ' garde-holiday' : '' }"}
                 = render 'gardes/garde', garde: garde
 
-      .panel-group{id: "accordion-#{mois}"}
+      .panel-group{id: "accordion-#{mois[:month]}"}
         .panel.panel-default
           .panel-heading
-            %h4.panel-title= link_to "Statistiques - #{I18n.t("date.month_names")[mois]}", "#collapse-one-#{mois}", data: {toggle: 'collapse', parent: "accordion-#{mois}"}
-          %div.panel-collapse.collapse{id: "collapse-one-#{mois}"}
+            %h4.panel-title= link_to "Statistiques - #{I18n.t("date.month_names")[mois[:month]]}", "#collapse-one-#{mois[:month]}", data: {toggle: 'collapse', parent: "accordion-#{mois[:month]}"}
+          %div.panel-collapse.collapse{id: "collapse-one-#{mois[:month]}"}
             .panel-body
               = render 'home/stats_table', gardes: gardes_by_month
 

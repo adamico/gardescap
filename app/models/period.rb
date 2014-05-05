@@ -13,8 +13,16 @@ class Period < ActiveRecord::Base
     I18n.l(starts_at).to_s + ' - ' + I18n.l(ends_at).to_s
   end
 
+  def months_years
+    result = []
+    (0..(months_in_period-1)).each do |i|
+      current_month = starts_at + i.months
+      result << {year: current_month.year, month: current_month.month}
+    end
+    result
+  end
+
   def mois
-    months_in_period = ((ends_at - starts_at).to_f / 30.0).ceil
     result = []
     (0..(months_in_period-1)).each do |i|
       result << (starts_at + i.months).month
@@ -47,5 +55,9 @@ class Period < ActiveRecord::Base
 
   def range
     (starts_at..ends_at).to_a
+  end
+
+  def months_in_period
+    ((ends_at - starts_at).to_f / 30.0).ceil
   end
 end

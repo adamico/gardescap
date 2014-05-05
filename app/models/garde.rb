@@ -38,6 +38,10 @@ class Garde < ActiveRecord::Base
     users.count
   end
 
+  def self.by_month_year(month, year)
+    by_month(month, year: year)
+  end
+
   def self.with_candidate(name)
     joins(:users).where(users: {name: name})
   end
