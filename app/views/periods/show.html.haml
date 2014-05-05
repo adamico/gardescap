@@ -23,18 +23,22 @@
   %br
 
 %ul.nav.nav-tabs
-  - @mois.each_with_index do |mois, index|
+  - @months_years.each_with_index do |month_year, index|
+    - month = month_year[:month]
+    - year = month_year[:year]
     %li{class: index == 0 ? 'active' : nil}
-      %a{href: "##{mois[:month]}", data: {toggle: 'tab'}} #{I18n.t('date.month_names')[mois[:month]]}
+      %a{href: "##{month}", data: {toggle: 'tab'}} #{I18n.t('date.month_names')[month]}
 
 .tab-content
-  - @mois.each_with_index do |mois, index|
-    - gardes_by_month = @gardes.by_month_year(mois[:month], mois[:year])
-    .tab-pane{id: mois[:month], class: index == 0 ? 'active' : nil}
+  - @months_years.each_with_index do |month_year, index|
+    - month = month_year[:month]
+    - year = month_year[:year]
+    -# gardes_by_month = @gardes.by_month_year(month, year)
+    .tab-pane{id: month, class: index == 0 ? 'active' : nil}
       %table.table.table-bordered.table-condensed.gardes
         %thead
           %tr
-            %th{rowspan: 2} #{I18n.t('date.month_names')[mois[:month]]}
+            %th{rowspan: 2} #{I18n.t('date.month_names')[month]}
             %th{colspan: 2} 13h30-18h30 samedi / 8h30-18h30 dim.-fériés
             %th Nuit courte
             %th Nuit longue
@@ -43,9 +47,9 @@
             %th Senior
             %th Junior
             %th Senior
-        - @period.days(mois[:month]).each do |date|
+        - @period.days(month).each do |date|
           %tr{id: date}
-            - gardes_by_day = gardes_by_month.where(date: (date..date))
+            - gardes_by_day = @gardes.where(date: (date..date))
             %th{class: gardes_by_day.any?(&:holiday?) ? 'garde-holiday' : '' }
               .pull-left= link_to_mass_toggle_holiday(date)
               .pull-right= l(date, format: :superlong)
@@ -53,13 +57,13 @@
               %td{id: [garde.date, garde.time].join('-'), class: "garde#{garde && garde.holiday? ? ' garde-holiday' : '' }"}
                 = render 'gardes/garde', garde: garde
 
-      .panel-group{id: "accordion-#{mois[:month]}"}
+      .panel-group{id: "accordion-#{month}"}
         .panel.panel-default
           .panel-heading
-            %h4.panel-title= link_to "Statistiques - #{I18n.t("date.month_names")[mois[:month]]}", "#collapse-one-#{mois[:month]}", data: {toggle: 'collapse', parent: "accordion-#{mois[:month]}"}
-          %div.panel-collapse.collapse{id: "collapse-one-#{mois[:month]}"}
+            %h4.panel-title= link_to "Statistiques - #{I18n.t("date.month_names")[month]}", "#collapse-one-#{month}", data: {toggle: 'collapse', parent: "accordion-#{month}"}
+          %div.panel-collapse.collapse{id: "collapse-one-#{month}"}
             .panel-body
-              = render 'home/stats_table', gardes: gardes_by_month
+              = render 'home/stats_table', gardes: @gardes.by_month_year(month, year)
 
 = link_to "Voir les statistiques sur toute la période #{@period.name}", stats_path, class: 'btn btn-info', target: '_blank'
 

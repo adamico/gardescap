@@ -6,7 +6,7 @@ class PeriodsController < ApplicationController
   def show
     @period = params[:id].present? ? Period.find(params[:id]) : Period.last
     @gardes = @period.gardes
-    @mois = @period.months_years
+    @months_years = @period.months_years
     respond_with @period
   end
 
